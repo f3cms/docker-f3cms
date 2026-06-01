@@ -37,7 +37,7 @@
 - [x] `history.md` 已建立並能描述目前 stage 與下一步
 - [x] `plan.md` 已建立並能提供可執行 stage
 - [x] `check.md` 已建立作為後續驗收基準
-- [ ] 若有穩定術語，是否已同步回寫 `document/` 共用文件
+- [x] 若有穩定術語，是否已同步回寫 `document/` 共用文件
 
 ## Stage 驗收清單
 
@@ -63,6 +63,7 @@
 - [x] 穩定規則已回寫到共用文件
 - [x] `history.md`、`plan.md`、`check.md` 已與實際結果同步
 - [x] 已判斷是否可進入 `(Optimization)`
+- [x] `optimization.md` 已建立並記錄穩定規則、殘留風險與封存前整理結果
 
 ## Current Status
 
@@ -85,7 +86,30 @@
 - [x] `Utils.php` 已完成檔案層級與函式層級註解覆蓋
 - [x] 已完成重要 module feed 評估，並挑出下一批具有架構註解價值的 feed 候選
 - [x] module feed 範圍已收斂為 `fPress`、`fStaff`、`fRole`、`fMenu`、`fTag` 五個指定 target，其餘 feed 本輪略過
+- [x] `www/f3cms/modules/Press/feed.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Staff/feed.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Role/feed.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Menu/feed.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Tag/feed.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] 已完成 module reaction 候選評估，並收斂出下一批高風險 reaction shortlist
+- [x] module reaction 範圍已收斂為 `Press`、`Draft`、`Staff`、`Crontab`、`Menu`、`Tag` 六個指定 target，其餘 reaction 本輪略過
+- [x] `www/f3cms/modules/Press/reaction.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Draft/reaction.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Staff/reaction.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Crontab/reaction.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Menu/reaction.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Tag/reaction.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] 已完成重要 module outfit 評估，並挑出下一批具有架構註解價值的 outfit 候選
+- [x] module outfit 範圍已收斂為 `Press`、`Post` 兩個指定 target，其餘 outfit 本輪略過
+- [x] `www/f3cms/modules/Press/outfit.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Post/outfit.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] 已完成重要 module kit 評估，並挑出下一批具有架構註解價值的 kit 候選
+- [x] module kit 範圍已收斂為 `Staff`、`Member`、`Adv`、`Draft` 四個指定 target，其餘 kit 本輪略過
+- [x] `www/f3cms/modules/Staff/kit.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Member/kit.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Adv/kit.php` 已完成 class-level 與函式層級架構註解 rollout
+- [x] `www/f3cms/modules/Draft/kit.php` 已完成 class-level 與函式層級架構註解 rollout
 
 ## Current Next Step
 
-先只做一件事：若要把 ArchitecturalIntent 從 shared libs 延伸到 module feed，先從使用者指定清單中的 `fPress` 開始切第一個最小 target；`fStaff`、`fRole`、`fMenu`、`fTag` 依序排後，其餘 feed 本輪不再承接。
+目前已完成 `(Optimization)` 所需的共用文件回寫與 closeout 整理。若不再擴張 target scope，這個 spec 可視為 ready for archive；若未來要續做新的 target，再從 `plan.md` / `check.md` 重新收斂下一批範圍。

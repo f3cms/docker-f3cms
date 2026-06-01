@@ -33,6 +33,15 @@ F3CMS 的核心架構思維，強調將不同責任拆到不同層級與元件�
 ### Kit
 工具或服務層。負責不適合放進單一實體 Feed/Reaction/Outfit 的共用工具、外部整合或支援性流程。
 
+### Architectural Intent Comment
+用來固化某個 class、function 或 shared runtime surface 的架構定位、設計意圖、絕對紅線與移植形狀的註解合約。它不是傳統 PHPDoc 的替代品，而是避免跨語言移植或 LLM 續作時發生 owner boundary 漂移的維護工具。
+
+### Owner-side Business Bridge
+由 owning module 透過 `kit.php` 或相近 owner-side helper 承接的可重用規則／協調層。它通常位在 validation、OAuth/session bind、AI intent shaping、worker dispatch、content/ad payload shaping 等邊界，目的是避免把 module-owned business rule 錯推到 `libs/` 或 generic helper。
+
+### Page-shaping Boundary
+由 `outfit.php` 承接的前台 route/render/SEO/cache/view-model 組裝邊界。它可以整理頁面輸出所需資料，但不應回收 entity persistence ownership，也不應成為主要寫入路徑。
+
 ### libs
 F3CMS 的 shared library 目錄。只應放 shared runtime、parser、evaluator、generic helper 或其他不涉及特定實體操作的基礎設施。若邏輯已涉及 entity truth、payload ownership、workflow / duty 判讀、task writeback、狀態寫回或其他 module-owned business coordination，則不應放在 `libs/`，而應回到對應 owning module。
 

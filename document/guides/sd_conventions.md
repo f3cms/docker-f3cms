@@ -305,6 +305,20 @@ When a file like this is clarified or ported:
 
 If a proposed design contradicts these summaries for convenience, prefer the owner boundary and revise the design rather than widening the shared layer.
 
+### Module-Owned Boundary Summaries
+
+When ArchitecturalIntent comments are added to module code, the comment should protect the module-owned boundary that future ports are most likely to blur.
+
+- module `Feed` comments should protect entity lifecycle ownership such as publish status, workflow trace, relation writeback, tree maintenance, role projection, and other persistence-adjacent rules that still belong to the owning module
+- module `Reaction` comments should protect request/orchestration boundaries such as login gate, workflow action routing, scheduler dispatch, tree editing flow, and content- or tag-facing response shaping without turning the reaction into a persistence owner
+- module `Outfit` comments should protect page-rendering boundaries such as SEO shaping, cache orchestration, route-to-view flow, sitemap or RSS output, and frontend page composition without letting Outfit become the main write path
+- module `Kit` comments should protect owner-side validation, business bridge, OAuth/session bind flows, ad-slot shaping, AI intent mapping, and other reusable module-owned helper logic without widening them into generic shared services
+
+When writing or reviewing these comments, prefer describing:
+- what owner-side truth the module layer coordinates
+- which adjacent layer it must not absorb
+- what future port must preserve even if the implementation language changes
+
 ## Rights, Roles, and Menu Integration
 
 A valid module design in F3CMS often includes operational integration, not only code and tables.

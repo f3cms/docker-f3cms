@@ -191,6 +191,74 @@
 - `fDuty`、`fTask`、`fMember`、`fManaccount`、`fCampaign`、`fDoorman`、`fDraft` 等，並非不重要，而是本輪先尊重使用者指定範圍，不擴張到未點名模組。
 - `fPost`、`fMedia`、`fOption`、`fSearch`、`fMeta`、`fGenus` 等維持略過，避免 scope 滑回全面盤點。
 
+#### 下一批重要 module reaction 候選草案
+
+使用者已把 module reaction 範圍明確收斂為六個 target：`Press/reaction.php`、`Draft/reaction.php`、`Staff/reaction.php`、`Crontab/reaction.php`、`Menu/reaction.php`、`Tag/reaction.php`。其餘 reaction 本輪明確略過。
+
+1. `Press/reaction.php`
+	- 優先順序：P0
+	- 風險理由：它直接承接 publish workflow transition、workflow trace、operator role 檢查、seen completion 與前台內容載入 shaping；若沒有註解保護，很容易把 workflow orchestration、Feed ownership 與 operator gate 混回 generic controller/service。
+2. `Draft/reaction.php`
+	- 優先順序：P0
+	- 風險理由：它集中 draft import、translate、SEO/i18n 生成與 Press document lifecycle 協調；若沒有註解保護，很容易把跨 content lifecycle orchestration 錯推到 generic helper 或 background worker。
+3. `Staff/reaction.php`
+	- 優先順序：P0
+	- 風險理由：它承接 backend login、session snapshot、sudo、CSRF/auth flow 與 security 協調；若沒有註解保護，很容易把 backend identity orchestration 與 shared session/runtime surface 混層。
+4. `Crontab/reaction.php`
+	- 優先順序：P0
+	- 風險理由：它有反射型 worker dispatch、security check 排程與跨 module job orchestration；若沒有註解保護，移植時很容易模糊 scheduler gateway、module-owned job logic 與 authorization 邊界。
+5. `Menu/reaction.php`
+	- 優先順序：P1
+	- 風險理由：它直接承接 tree editing、structure validation 與全域 navigation orchestration；若沒有註解保護，hierarchical UI orchestration 很容易漂回 generic tree helper。
+6. `Tag/reaction.php`
+	- 優先順序：P1
+	- 風險理由：它雖較薄，但直接位在 tag relation、lookup 與內容分類反應邊界；若沒有註解保護，容易被降格為純 transport wrapper，忽略 owner-side分類語意。
+
+本輪明確略過的 reaction：
+- `Webhook`、`Media`、`Campaign`、`Adv` 等，並非不重要，而是本輪先尊重使用者指定範圍，不擴張到未點名模組。
+- `User`、`Doorman`、`Excel`、`Search`、`Shorten`、`Dictionary`、`Stream`、`Yell` 等空 reaction 與其它薄 wrapper / lookup reaction 維持略過，避免 scope 滑回全面 rollout。
+
+#### 下一批重要 module outfit 候選草案
+
+使用者已把 module outfit 範圍明確收斂為兩個 target：`Press/outfit.php`、`Post/outfit.php`。其餘 outfit 本輪明確略過。
+
+1. `Press/outfit.php`
+	- 優先順序：P0
+	- 風險理由：它是 Press 前台文章頁面的主 rendering / caching / page-shaping boundary，直接組裝文章、分類、標籤、作者、相關文、媒體、SEO 與 ld+json；若沒有註解保護，很容易把 page orchestration、content shaping 與 Feed / Kit owner boundary 混回 generic page helper 或 controller。
+2. `Post/outfit.php`
+	- 優先順序：P1
+	- 風險理由：它是站點級 frontdoor outfit，承接首頁、robots、sitemap、rss、LINE XML、靜態頁與 404/coming soon/maintenance 等前台入口；若沒有註解保護，很容易被誤解成零散頁面集合，忽略它其實是 site-wide rendering/orchestration boundary。
+
+本輪明確略過的 outfit：
+- `Member/outfit.php`、`Staff/outfit.php`、`Draft/outfit.php`、`Edm/outfit.php`、`Contact/outfit.php` 並非不重要，而是本輪先尊重使用者指定範圍，不擴張到未點名模組。
+- `Role/outfit.php`、`Media/outfit.php`、`Stats/outfit.php`、`Search/outfit.php`、`User/outfit.php` 先略過，因為幾乎空殼，沒有足夠 owner-boundary 行為可寫成高價值架構註解。
+- `Webhook/outfit.php`、`Yell/outfit.php`、`Adv/outfit.php`、`Shorten/outfit.php`、`Subscription/outfit.php` 先略過，因為主要是 transport wrapper、counter / reroute 或單一步驟 action wrapper，架構風險低於前段候選。
+- `Author/outfit.php`、`Category/outfit.php`、`Tag/outfit.php`、`Dictionary/outfit.php` 先略過，因為主要是 slug 或 id lookup 後 render 單一模板，較接近 lookup/view helper，不是高風險 orchestration boundary。
+
+#### 下一批重要 module kit 候選草案
+
+使用者已把 module kit 範圍明確收斂為四個 target：`Staff/kit.php`、`Member/kit.php`、`Adv/kit.php`、`Draft/kit.php`。其餘 kit 本輪明確略過。
+
+1. `Staff/kit.php`
+	- 優先順序：P1
+	- 風險理由：它承接 backend staff invite、account uniqueness rule、save/login/reset validation 與後台 login gate；若沒有註解保護，移植時很容易把 account uniqueness、invite flow 與 backend gate 錯塞回 generic form validation 或 shared auth helper。
+2. `Member/kit.php`
+	- 優先順序：P0
+	- 風險理由：它同時碰 member identity truth、OAuth binding snapshot、register 後 task trigger 與 session writeback；若沒有註解保護，移植時很容易把 auth/session truth、EventRule context preload 或 register side effect 混回 shared auth helper、controller 或 generic social-login service。
+3. `Adv/kit.php`
+	- 優先順序：P1
+	- 風險理由：它不是單純 cache helper，而是把廣告版位資源與 Press/Category 內容投影綁在同一個 kit surface；若沒有註解保護，很容易把 ad-slot shaping、content enrichment 與 cache ownership 混成 generic board helper。
+4. `Draft/kit.php`
+	- 優先順序：P2
+	- 風險理由：它雖然偏外部 MPThelper 的 transport bridge，但仍定義了 Draft 對 AI writing、SEO、guideline、translate 與 quicktrans 的 intent shaping 與 payload 契約；若沒有註解保護，很容易被擴張成 generic AI helper，侵蝕 Draft module 的 owner-side workflow 邊界。
+
+本輪明確略過的 kit：
+- `Duty/kit.php`、`Campaign/kit.php`、`Doorman/kit.php` 並非不重要，而是本輪先尊重使用者指定範圍，不擴張到未點名模組。
+- `Webhook/kit.php`、`Yell/kit.php`、`Lab/kit.php` 先略過，因為幾乎空殼，沒有足夠 owner-boundary 行為可寫成高價值架構註解。
+- `Post/kit.php`、`Shorten/kit.php`、`Press/kit.php` 先略過，因為主要是薄 wrapper、present/decorate helper、lang check 或 reroute/callback orchestration，owner-boundary 低於前段候選。
+- `Excel/kit.php`、`Crontab/kit.php` 先略過，因為主要偏 export/render transport helper 或 ops/security CLI helper，不是目前這輪要先保護的 module-owned business truth 邊界。
+- `Contact/kit.php` 並非不重要，但目前只剩 captcha 與 add_new rule，責任面較小，先不列入第一批 kit 註解標的。
+
 ### Stage 3: 補第一批類別的架構意圖註解
 
 目標：
