@@ -30,7 +30,7 @@
 - 目前沒有未完成的 mainline implementation slice。
 
 ## 封存前剩餘整理
-- `history.md` 壓縮整理已完成，下一位承接者可以直接從 owner naming resync、formal web-route 驗證與 shared-doc 回寫三條主線理解這份 spec 的收尾狀態。
+- `history.xml` 壓縮整理已完成，下一位承接者可以直接從 owner naming resync、formal web-route 驗證與 shared-doc 回寫三條主線理解這份 spec 的收尾狀態。
 - 目前不需要再回寫新的 guides 或 reference；API testing 與 route contract 的共享規則已升格完成，feature 已進入 archive-ready 狀態。
 
 ## If Work Continues

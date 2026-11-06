@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<history>
+  <round index="6">
+    <current_focus>
+      <item>移除 plan/check 中的 Current Stage，避免與 history 的 stage 判斷重複。</item>
+      <item>將 history 每一輪格式收斂為固定欄位，確保承接一致性。</item>
+    </current_focus>
+    <ai_actions>
+      <item>更新 flow 文件，規範 Current Stage 不在 plan/check 維護。</item>
+      <item>新增 history 每輪 XML 標準格式與必要欄位。</item>
+      <item>從 SMSSystem 的 plan/check 移除 Current Stage 相關欄位。</item>
+    </ai_actions>
+    <next_steps>
+      <item>後續新輪次一律依 XML 欄位記錄：current_focus / ai_actions / next_steps。</item>
+      <item>如需整理舊輪內容，採新增一輪壓縮摘要，不回寫舊輪。</item>
+    </next_steps>
+  </round>
+
+  <round index="5">
+    <current_focus>
+      <item>以 Sprint 最小下一步原則修正文件與實作落差。</item>
+      <item>確認 Mobile canonical 模板是否真正落地。</item>
+    </current_focus>
+    <ai_actions>
+      <item>檢查 history/plan/check 與實作的一致性，識別 CRUD 後台描述與實際落差。</item>
+      <item>落地 `tmpls/{entity}/simple.html` 形式的 Mobile staff-side 模板 scaffold。</item>
+      <item>沿用 Gene Panel 行為鉤子（loadList/loadRow/setRow/cancelForm）。</item>
+    </ai_actions>
+    <next_steps>
+      <item>擴展 Phonebook / Campaign 的同型模板 slice。</item>
+      <item>補上對應 smoke 與路由驗證，完成 CRUD-admin 收斂。</item>
+    </next_steps>
+  </round>
+
+  <round index="4">
+    <current_focus>
+      <item>修正 Reaction override 與模板命名兩項前期錯誤。</item>
+      <item>明確化 Gene Panel `tmpls/{entity}` 命名慣例。</item>
+    </current_focus>
+    <ai_actions>
+      <item>確認 `Reaction` 父類已有通用 do_list/do_save/do_delete/do_create_or_ensure，不應在 rMobile 重複實作。</item>
+      <item>將 list/editor/modal/simple 命名規則整理進參考文件。</item>
+      <item>清理 prior custom override 與非標準模板命名造成的偏差。</item>
+    </ai_actions>
+    <next_steps>
+      <item>以 parent Reaction boundary + `tmpls/{entity}/...` 命名規則推進後續 CRUD work。</item>
+    </next_steps>
+  </round>
+
+  <round index="3">
+    <current_focus>
+      <item>嘗試落地第一個 Mobile CRUD 最小實作 slice。</item>
+      <item>建立 staff-facing CRUD scaffold 與 endpoint。</item>
+    </current_focus>
+    <ai_actions>
+      <item>新增 Mobile 模板原型與 rMobile admin endpoints（當時版本）。</item>
+      <item>保持 kStaff 驗證與 owner-boundary 基本分層。</item>
+    </ai_actions>
+    <next_steps>
+      <item>補齊 Phonebook / Campaign admin CRUD 入口。</item>
+      <item>以 Docker smoke 驗證 CRUD flow 與 API contract。</item>
+    </next_steps>
+  </round>
+
+  <round index="2">
+    <current_focus>
+      <item>修正 Sprint 停在文件 review 的執行停滯問題。</item>
+      <item>將 reopen scope 轉成可執行最小 action。</item>
+    </current_focus>
+    <ai_actions>
+      <item>確認 `idea/plan/check` 有未落實規格時，Sprint 不能停在 review-only。</item>
+      <item>重設最小執行順序：記錄新 round → 檢查 drift → 執行 Mobile CRUD slice → 更新 plan/check。</item>
+    </ai_actions>
+    <next_steps>
+      <item>建立 Mobile CRUD 後台入口與最小 list/create/edit/delete flow。</item>
+      <item>維持 UI 在 tmpls，業務邏輯留在 owner module/feed/reaction。</item>
+    </next_steps>
+  </round>
+
+  <round index="1">
+    <current_focus>
+      <item>`idea.md` 補入 CRUD Backoffice 需求後，重新啟動 flow。</item>
+      <item>確認 scope 尚未結束，不能視為 optimization 完成。</item>
+    </current_focus>
+    <ai_actions>
+      <item>移除過早的 `(Optimization)` 判定。</item>
+      <item>以 `history/plan/check` 一致性作為每輪承接依據。</item>
+    </ai_actions>
+    <next_steps>
+      <item>由 Sprint 自動判斷並執行 Mobile CRUD 的最小 slice。</item>
+    </next_steps>
+  </round>
+
+  <round index="0">
+    <current_focus>
+      <item>修正 history 維護格式，建立正確輪次承接基準。</item>
+      <item>確認 `idea/plan/check` 仍有未落實 CRUD 需求，scope 未結束。</item>
+    </current_focus>
+    <ai_actions>
+      <item>將歷史紀錄改回輪次格式，避免 date-summary 造成承接失真。</item>
+      <item>明確化流程規則：更新 idea 後移除 `(Optimization)` 並重啟一致性檢查。</item>
+      <item>鎖定最小主軸為 Mobile/Phonebook/Campaign 的 Gene Panel CRUD 管理入口。</item>
+    </ai_actions>
+    <next_steps>
+      <item>先做 Mobile CRUD 最小 slice，驗證 owner-boundary。</item>
+      <item>再擴展 Phonebook CRUD + M:N binding。</item>
+      <item>再補 Campaign CRUD + queue-status listing，最後以 Docker smoke 驗證。</item>
+    </next_steps>
+  </round>
+</history>

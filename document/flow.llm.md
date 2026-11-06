@@ -10,10 +10,17 @@
 
 ## 1. Stage 判斷順序
 
-1. 先讀 `document/spec/<feature>/history.md`
+1. 先讀 `document/spec/<feature>/history.xml`
 2. 用最新一輪判斷目前 stage
 3. 再讀 `plan.md` 與 `check.md` 確認下一步
 4. 只有在前段未完成或前提失效時才回讀 `idea.md`
+
+### Stage 記錄位置規則
+- 不在 `plan.md`、`check.md` 維護 `Current Stage` 區塊。
+- 目前 stage 一律以 `history.xml` 最新一輪作為唯一承接來源。
+- 每一輪 `history.xml` 至少記錄：當前重點事項、AI 執行事項、下一步事項。
+- `history.xml` 結構固定為 `<history><round index="...">...</round></history>`。
+- 階段性完工時，`next_steps` 可記錄「無下一步計畫」。
 
 ### Stage 快速判斷
 - `idea`：需求、範圍、限制、依賴、風險仍未成形，或仍無法用穩定的 example / scenario 說清主要需求
@@ -21,12 +28,12 @@
 - `plan`：方向已收斂，但尚未拆成可執行 stage / 驗收點
 - `(done)`：已有明確 stage 可實作，正在做程式或文件變更與驗證
 - `check`：已有實作結果，正在驗收完成項、未完成項與風險
-- `(Optimization)`：主要實作與驗收已完成，只剩規則沉澱、詞彙整理、共用文件同步與封存前收尾
+- `(Optimization)`：主要實作與驗收已完成，只剩規則沉澱、詞彙整理與共用文件同步
 
 ## 2. 文件閱讀優先序
 
 1. 先讀 `document/` 內相關共用文件
-2. 若是 feature work，先讀 `history.md`
+2. 若是 feature work，先讀 `history.xml`
 3. 再讀 `plan.md` 與 `check.md`
 4. 最後才回讀 `idea.md`
 
@@ -51,13 +58,19 @@
 - Docker 與 host 結果不同時，以 Docker 為準
 - host-only failure 不直接判定為 code regression
 
-## 4. `(Optimization)` 進入條件
+## 4. `(Optimization)` 進入條件與永續 spec 規則
 
 1. `check.md` 已確認主要實作完成
 2. `check.md` 已確認主要驗收完成
 3. 沒有阻擋 release 或主流程承接的關鍵缺口
-4. 下一步已收斂為文件同步、規則沉澱、詞彙整理、封存前處理
+4. 下一步已收斂為文件同步、規則沉澱、詞彙整理
 5. 若目前 stage 已在 `(Optimization)`，`FDD Sprint` 必須重新檢查 `idea.md`、`plan.md`、`check.md`，確認沒有未落實規格、缺漏驗收點或被忘記的承接前提，再決定是否仍可視為 `Optimization`。
+
+### 永續 spec 與「無下一步計畫」
+- spec 是永續 artifact，不採用「封存即結束」前提；只有移除 spec 才代表失去該 spec。
+- 若 `history.xml` 最新一輪明確標示「無下一步計畫」，`FDD Sprint` 必須先重檢 `idea.md`、`plan.md`、`check.md`：
+  - 若需求沒有漂移、也沒有未完成需求或 checklist，停止 Sprint（不產生新實作輪次）。
+  - 若仍有未完成需求或 checklist，新增一輪 `history.xml`，補上明確「下一步事項」後再繼續 Sprint。
 
 ### 未達條件時
 - 不進入 `(Optimization)`
@@ -65,17 +78,17 @@
 
 ### `idea.md` 更新時的重啟規則
 - 只要任一輪更新了 `idea.md`，就不得繼續沿用原本的 `(Optimization)` 狀態。
-- 更新 `idea.md` 後，立即移除當前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.md` / `plan.md` / `check.md` 的一致性檢查開始重新判定 stage。
-- 此規則用於避免在需求被修正後，仍以舊的封存狀態掩蓋新的未完項。
+- 更新 `idea.md` 後，立即移除當前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.xml` / `plan.md` / `check.md` 的一致性檢查開始重新判定 stage。
+- 此規則用於避免在需求被修正後，仍以舊的完成假設掩蓋新的未完項。
 
 ## 5. 每輪最小輸出要求
 
 - `idea`：至少更新一次 `idea.md`，或明確指出還缺哪些資訊；若需求仍抽象，優先補 example / scenario
-- `(discuss)`：至少新增一輪 `history.md`
+- `(discuss)`：至少新增一輪 `history.xml`
 - `plan`：至少新增或修正一段可執行 stage、驗收點或 fallback
-- `(done)`：至少留下可驗證的變更、驗證結果、`history.md` 更新
+- `(done)`：至少留下可驗證的變更、驗證結果、`history.xml` 更新
 - `check`：至少標示已完成項、未完成項、下一步
-- `(Optimization)`：至少完成一項共用規則回寫、詞彙整理或封存前整理
+- `(Optimization)`：至少完成一項共用規則回寫、詞彙整理或流程優化整理
 
 ## 6. Drift 發現後的處置順序
 
@@ -86,24 +99,24 @@
 5. 最後才決定是否需要改程式或改設計
 
 ### Drift 類型
-- 文件漂移：`history.md`、`plan.md`、`check.md`、`idea.md` 彼此不一致
+- 文件漂移：`history.xml`、`plan.md`、`check.md`、`idea.md` 彼此不一致
 - Stage 漂移：文件描述的當前 stage 與實際工作狀態不一致
 - 驗收漂移：`check.md` 與實際驗證結果不一致
 - 程式 / 文件漂移：程式現況與 spec 文件不一致
 
 ### 承接基準
-- `history.md` 優先用來判斷目前 stage 與下一步
+- `history.xml` 優先用來判斷目前 stage 與下一步
 - `plan.md` 與 `check.md` 用來確認正式拆分與驗收是否跟上
 - `idea.md` 用來判斷是否是需求真的改了
 
 ### 處置規則
-- 若穩定結論只存在 `history.md`，回寫到 `plan.md` 或 `check.md`
+- 若穩定結論只存在 `history.xml`，回寫到 `plan.md` 或 `check.md`
 - 若前提失效，明確指出要回退哪一段文件或哪一個 stage
 - 未處理重要 drift 前，不進入 `(Optimization)`
 
 ## 7. 禁止事項
 
-- 不要跳過 `history.md`
+- 不要跳過 `history.xml`
 - 不要每次承接都重跑 `idea.md`
 - 不要直接重做設計
 - 不要把 host 結果覆蓋 Docker 結果
@@ -122,7 +135,7 @@
 - 評估徵兆可包含：框架邊界失效、僅被呼叫一次的函式（不含 smoke test）、過度窄化的 Feed 函式
 - 評估結果只分兩類：必須立即重構，或可延後重構
 - 若 drift 已影響 implementation、review、驗收或下一步承接，判定為必須立即重構
-- 若只是局部徵兆，尚未形成擴散依賴，可先記錄到 `history.md` / `check.md`，不必立刻展開重構
+- 若只是局部徵兆，尚未形成擴散依賴，可先記錄到 `history.xml` / `check.md`，不必立刻展開重構
 - 只有在已出現明確 convention drift 時，才把框架慣例重構當成正式工作
 - convention drift 需已影響 implementation、review、驗收或長期維護，不只是風格偏好
 - 重構必須能收斂為局部 resync，不可藉機重開 feature 設計或擴張 scope
@@ -131,7 +144,7 @@
 ## 8. 單次執行最短路徑
 
 1. 先讀相關 `document/` 文件
-2. 先讀 `history.md`
+2. 先讀 `history.xml`
 3. 判斷目前 stage
 4. 讀 `plan.md` 與 `check.md`
 5. 定義本輪最小下一步

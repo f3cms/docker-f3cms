@@ -125,7 +125,7 @@ When working on Smoke S Layer code:
 ### For LLMs
 
 1. Resolve the current spec from `document/spec/.current-spec.md`.
-2. Read that spec's `history.md`, then `plan.md`, then `check.md`, then `optimization.md` when present.
+2. Read that spec's `history.xml`, then `plan.md`, then `check.md`, then `optimization.md` when present.
 3. Use this guide when the task involves smoke ownership, entrypoint rules, path grammar, or runtime guards.
 4. Only reopen Smoke S Layer design if the current spec files show a real prerequisite failure.
 
@@ -134,7 +134,7 @@ When working on Smoke S Layer code:
 When a change touches the Smoke S Layer structure:
 
 - Update the active feature spec files required by the current FDD stage.
-- Update `document/spec/SmokeTestOptimization/history.md` when a new stable continuation point or rule is discovered.
+- Update `document/spec/SmokeTestOptimization/history.xml` when a new stable continuation point or rule is discovered.
 - Update `document/spec/SmokeTestOptimization/optimization.md` when a rule becomes stable enough to outlive the current task.
 - Update this guide only when the rule is generic enough for future engineers and LLMs to follow by default.
 - Update shared files such as `glossary.md` and reference docs only when the rule is reusable outside the current feature narrative.

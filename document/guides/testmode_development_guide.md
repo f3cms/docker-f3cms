@@ -115,7 +115,7 @@ When working on TestMode-related tests:
 ### For LLMs
 
 1. Resolve the current spec from `document/spec/.current-spec.md`.
-2. Read that spec's `history.md`, then `plan.md`, then `check.md`.
+2. Read that spec's `history.xml`, then `plan.md`, then `check.md`.
 3. Use this guide when the task involves smoke location, naming, validation, or test-system boundaries.
 4. Only reopen TestMode structure design if the spec files show a real prerequisite failure.
 
@@ -124,7 +124,7 @@ When working on TestMode-related tests:
 When a change touches TestMode-related test structure:
 
 - Update the active feature spec files required by the current FDD stage.
-- Update `document/spec/TestMode/history.md` when a new rule, decision, or stable continuation point is discovered.
+- Update `document/spec/TestMode/history.xml` when a new rule, decision, or stable continuation point is discovered.
 - Update `document/spec/TestMode/optimization.md` when the rule becomes stable enough to outlive the current task.
 - Update this guide only when the rule is generic enough for future engineers and LLMs to follow by default.
 - Update shared files such as `glossary.md` only for terminology that is truly reusable outside TestMode itself.

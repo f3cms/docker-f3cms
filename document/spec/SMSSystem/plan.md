@@ -1,11 +1,21 @@
 # SMSSystem Plan
 
-## Current Stage
-- (Optimization)
-
 ## Planning Basis
 - Source of truth: `idea.md`
-- Current objective: 把已收斂的需求拆成可實作、可驗收、可逐輪承接的 stage
+- Current objective: 重新檢查 `idea.md`、`plan.md`、`check.md` 是否已納入 `Gene Panel CRUD Backoffice` 的未落實需求，並從 `Mobile` CRUD 的最小 slice 開始落地。
+
+## Stage 6: Gene Panel CRUD Backoffice Implementation Plan
+- 首輪目標：先以右側小表單模式落地 `www/tmpls/mobile/simple.html`（符合 `tmpls/{entity}/simple.html` 慣例），不再使用 `sms-mobile-admin.html` 這種功能型命名。
+- 後端最小實作：先遵守 `Reaction` 的 parent method boundary；只有父類中不存在的 action 才在 `rMobile` 補上自訂方法，避免重複實作通用 `do_list` / `do_save` / `do_delete`。
+- 模板與 UI 分層：
+  - `list.html`：列表頁與搜尋
+  - `editor.html`：完整表單頁
+  - `modal.html`：跳出式新增/編輯表單
+  - `simple.html`：右側小表單/簡化編輯面板
+- 本輪進度：
+  - 已新增 `www/tmpls/mobile/simple.html`，提供 Mobile staff-side 的最小 list + search + edit form scaffold。
+- Owner boundary：模板與表單僅負責 UI，資料正規化、status update、驗證、刪除仍維持在 `Mobile` owner module / feed / reaction。
+- 次輪接續：擴展 `Phonebook` CRUD 與 `Phonebook` / `Mobile` M:N binding，最後補 `Campaign` CRUD + queue-status view。
 
 ## Stage Breakdown
 
@@ -236,6 +246,40 @@
   - 文件可清楚回答何時用 `php-fpm`，何時才需要 `mariadb`。
   - 文件可清楚回答最小 smoke path 至少要覆蓋 task expansion、provider routing、opt-out、rate limit、provider failure。
   - 文件可清楚回答 `.env` 是 DB 驗證的唯一帳密來源。
+
+### Stage 6: Gene Panel CRUD Backoffice Implementation Plan
+- 在 `www/tmpls` 中補上 `Mobile` / `Phonebook` / `Campaign` 的標準後台 CRUD 介面，沿用 Gene Panel 的列表 / 搜尋 / 表單 / 按鈕元件模式。
+- 目標是讓 staff 可在後台維護資料，不直接把業務邏輯塞進模板。
+- 子任務 breakdown：
+  - **Task 6.1: `Mobile` CRUD layout**
+    - 建立 `www/tmpls/mobile/list.html` 與 `www/tmpls/mobile/editor.html`
+    - 提供搜尋條件：門號、狀態、最後發送時間
+    - 表單欄位包含 `phone_number`、`status`、`last_sent_ts`、審計欄位
+    - 由 `fMobile` / `rMobile` 對接 `Mobile` owner-side CRUD contract
+  - **Task 6.2: `Phonebook` CRUD + M:N binding**
+    - 建立 `www/tmpls/phonebook/list.html` 與 `www/tmpls/phonebook/editor.html`
+    - 提供搜尋條件：會員、標題、狀態、建立時間
+    - 支援建立 / 編輯通訊錄、關聯手機門號清單
+    - 在後端透過 `Phonebook feed/reaction` 維護 `tbl_phonebook` 與 `tbl_phonebook_mobile`
+  - **Task 6.3: `Campaign` CRUD + queue status view**
+    - 建立 `www/tmpls/campaign/list.html` 與 `www/tmpls/campaign/editor.html`
+    - 提供搜尋條件：會員、phonebook、狀態、排程時間、provider alias
+    - 支援建立 `Queued` campaign、檢視 `total_targets` / `sent_count` / `failed_count`、查看個別 log 狀態
+    - 仍由 `Campaign` owner module 透過 `CampaignLog` worker contract 維持非同步處理，而不是將 worker 邏輯放進模板層
+  - **Task 6.4: Gene Panel route contract alignment**
+    - 補齊 Ajax / action route 以符合既有 `r{Module}` / `do_*` contract
+    - 確認資料欄位名稱、status map、錯誤訊息與 list payload 與 `subset / total / limit / page` pattern 一致
+  - **Task 6.5: Staff admin smoke validation**
+    - 針對 `Mobile`、`Phonebook`、`Campaign` 刻出最小 CRUD smoke：create / list / edit / delete
+    - 驗證列表查詢與表單送出都走正確 owner module，而非直接寫死到模板
+- Design guardrails：
+  - 模板依然只負責 UI；資料驗證、狀態更新、M:N 綁定、worker 協調仍保留在 `Mobile` / `Phonebook` / `Campaign` 各自 owner module。
+  - 不得把 `CampaignLog` 執行邏輯或防刷規則推進 `www/tmpls`，避免破壞 owner boundary。
+  - 若 CRUD 後台被擴充成更複雜工作流，應另開新 spec，而不是直接擴大此 feature 的 default scope。
+- Verify:
+  - 可清楚回答每個 CRUD page 的 UI 入口、資料來源與 owner-module 責任。
+  - 可清楚回答 `tmpls` 只作 UI、真正 CRUD 與驗證仍在 owner-side module。
+  - 可清楚回答後台 CRUD 不會跟 worker queue contract 混淆。
 
 ## Current Smallest Next Step
 - 前十個 `(done)` implementation slice 已完成：`Campaign` expansion、最小 worker routing path、`Opt-out` guardrail smoke、`rate limit` guardrail smoke、`provider failure` smoke、`Phonebook -> Mobile -> Campaign` owner-side feed surface、`Campaign` request surface、`Mobile` request surface、`Phonebook -> Campaign` mainline request-flow 驗收案例，以及正式 web route / request-flow 整合驗證都已落地並通過 Docker smoke。

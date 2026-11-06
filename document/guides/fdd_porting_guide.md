@@ -58,7 +58,7 @@ These two files define the stage model, entry and exit criteria, history-first c
 ### B. Workspace-Level LLM Rules
 - [../../.github/copilot-instructions.md](../../.github/copilot-instructions.md)
 
-This file is what turns FDD from documentation into always-on working behavior. Without it, the LLM may stop reading `history.md` first, stop preferring Docker, or stop updating `plan.md` / `check.md` / `history.md` consistently.
+This file is what turns FDD from documentation into always-on working behavior. Without it, the LLM may stop reading `history.xml` first, stop preferring Docker, or stop updating `plan.md` / `check.md` / `history.xml` consistently.
 
 ### C. Prompt Entry Points
 - [../../.github/prompts/fdd-sprint.prompt.md](../../.github/prompts/fdd-sprint.prompt.md)
@@ -83,7 +83,7 @@ document/
     .current-spec.md
     <FeatureA>/
       idea.md
-      history.md
+      history.xml
       plan.md
       check.md
       optimization.md
@@ -96,7 +96,7 @@ The `.current-spec.md` pointer is essential. It lets the LLM resolve the current
 These parts are usually portable with no or minimal wording changes:
 - stage chain in `flow.md`
 - stage判斷順序與 drift handling in `flow.llm.md`
-- `history.md` first rule
+- `history.xml` first rule
 - `plan.md` / `check.md` / `optimization.md` artifact ownership model
 - `.current-spec.md` pointer mechanism
 - FDD prompt structure and execution order
@@ -154,7 +154,7 @@ To preserve that bias, the migrated project must teach the LLM five concrete thi
 
 The LLM must be instructed to read in this order:
 1. current spec pointer
-2. target `history.md`
+2. target `history.xml`
 3. target `plan.md`
 4. target `check.md`
 5. shared process or architecture documents
@@ -165,7 +165,7 @@ If this order is not preserved, the LLM tends to restart design from `idea.md` a
 ### 2. How to Determine Stage
 
 The migrated rules must state explicitly:
-- `history.md` is the stage handoff file
+- `history.xml` is the stage handoff file
 - `plan.md` and `check.md` are support files for execution and acceptance
 - `idea.md` is not the default continuation entry point
 
@@ -194,10 +194,10 @@ The migrated rules should force explicit artifact updates.
 
 Typical mapping:
 - `idea` round: update `idea.md`
-- `(discuss)` round: update `history.md`
+- `(discuss)` round: update `history.xml`
 - `plan` round: update `plan.md` and often `check.md`
-- `(done)` round: update implementation plus `history.md`
-- `check` round: update `check.md` and `history.md`
+- `(done)` round: update implementation plus `history.xml`
+- `check` round: update `check.md` and `history.xml`
 - `(Optimization)` round: update shared docs and `optimization.md`
 
 If this is not written down, progress drifts back into chat-only state.
@@ -236,7 +236,7 @@ Establish:
 - at least one real feature folder
 - the five base spec files in that feature folder
 
-Do not wait until later to add `history.md`. The workflow breaks quickly without it.
+Do not wait until later to add `history.xml`. The workflow breaks quickly without it.
 
 ### Step 4: Validate the Prompt Contract
 
@@ -249,7 +249,7 @@ Test these prompt behaviors in the new project:
 
 The test should confirm that the LLM:
 - resolves `.current-spec.md`
-- reads `history.md` first
+- reads `history.xml` first
 - states current stage correctly
 - chooses the smallest next step
 - mentions the correct validation environment
@@ -260,7 +260,7 @@ Do not declare the migration complete after copying files.
 
 Use one real feature and verify that the LLM can:
 - initialize the spec chain
-- continue from `history.md`
+- continue from `history.xml`
 - detect drift
 - update the correct artifacts
 - avoid skipping directly to implementation
@@ -276,8 +276,8 @@ Use this checklist before declaring the migration stable.
 - [ ] Workspace instructions tell the LLM how DB verification should resolve source of truth
 - [ ] Prompt entry points exist for focus, sprint, review, refactor, and retrospective
 - [ ] The spec root contains `.current-spec.md`
-- [ ] Feature folders use `idea.md`, `history.md`, `plan.md`, `check.md`, `optimization.md`
-- [ ] The LLM reads `history.md` before `plan.md` and `check.md`
+- [ ] Feature folders use `idea.md`, `history.xml`, `plan.md`, `check.md`, `optimization.md`
+- [ ] The LLM reads `history.xml` before `plan.md` and `check.md`
 - [ ] The LLM does not restart from `idea.md` unless required
 - [ ] The LLM reports drift before changing direction
 - [ ] The LLM updates the expected artifact files after each round
@@ -312,7 +312,7 @@ Suggested prompt:
 
 ```text
 請依 FDD 承接目前 feature。
-先讀 current spec pointer，再讀 history.md、plan.md、check.md。
+先讀 current spec pointer，再讀 history.xml、plan.md、check.md。
 先回答目前 stage、上一輪完成項與最小下一步。
 若發現 drift，先指出 drift，不要直接重做設計。
 若需要驗證，請使用本專案規定的驗證環境。

@@ -1,14 +1,16 @@
 # SMSSystem Check
 
 ## Current Status
-- Current stage: (Optimization)
-- Main implementation: first ten slices completed
-- Validation: expansion slice, worker routing slice, worker opt-out slice, worker rate-limit slice, worker provider-failure slice, owner-side phonebook slice, campaign request-surface slice, mobile request-surface slice, mainline request-flow slice, and formal web-route request-flow slice passed in Docker
+- Re-open trigger: `idea.md` was updated with the unresolved `Gene Panel CRUD Backoffice` requirement, so the previous `(Optimization)` state was removed and the flow was restarted.
+- Main implementation: first ten slices completed, but the CRUD-admin requirement remains unclosed and must be rechecked before any optimization claim is valid.
+- Current sprint slice: first staff-side CRUD pattern corrected to match the repo convention; `www/tmpls/mobile/simple.html` is now added as the canonical `tmpls/{entity}/simple.html` scaffold for Mobile, and the earlier temporary `www/tmpls/sms-mobile-admin.html` prototype remains removed.
+- Validation: expansion slice, worker routing slice, worker opt-out slice, worker rate-limit slice, worker provider-failure slice, owner-side phonebook slice, campaign request-surface slice, mobile request-surface slice, mainline request-flow slice, and formal web-route request-flow slice passed in Docker.
+- Architecture correction: `Reaction` generic CRUD methods already exist in the parent class, so module-specific overrides are only needed for missing parent methods; the temporary custom overrides were removed to preserve the existing boundary and avoid redundant logic.
 - Document chain: initialized on 2026-05-20
 
 ## Completed
 - `idea.md` 已定義問題、範圍、非範圍、核心模組、資料表草案、SBE scenario 與時序圖。
-- `history.md` / `plan.md` / `check.md` 已補齊最小承接骨架。
+- `history.xml` / `plan.md` / `check.md` 已補齊最小承接骨架。
 - 已確認 provider helper 基礎可沿用既有 `SmsProviderInterface`、`AmazonSnsProvider`、`MitakeProvider`、`smSender`。
 - 已確認 SMSSystem 的主 queue 不應直接沿用 `smSender` 內建 queue，仍以 `tbl_campaign_log` + worker 為準。
 - 已補出 Stage 1 的 owner / schema 初稿：table owner、核心欄位、索引草案、`tbl_campaign_log` status vocabulary 與初始 error_message 候選。
@@ -19,6 +21,9 @@
 - 已補出 Stage 5 validation route：正式 Docker baseline 為 `php-fpm`，direct SQL 驗證只在必要時走 `mariadb`，且帳密來源固定回到 `.env`。
 - 已定義 SMSSystem 最小 smoke matrix：task expansion、opt-out、rate limit、provider routing、provider failure。
 - 已解掉 owner naming drift：SMSSystem 不再與既有 `Task` domain 共用 task owner 名稱，後續 implementation 以 `Mobile` / `Phonebook` / `Campaign` 與 `tbl_mobile` / `tbl_phonebook*` / `tbl_campaign*` 為準。
+- 已完成第十一個 implementation slice（最小模板落地）：
+  - `www/tmpls/mobile/simple.html` 已建立，採 `tmpls/{entity}/simple.html` 命名
+  - 已提供 Mobile staff-side 最小 list / query / edit form scaffold，維持 UI in template、CRUD orchestration 走 parent `Reaction` 邊界
 - 已完成第一個 implementation slice：
   - `document/sql/260520.sql` 已補 `tbl_mobile`、`tbl_phonebook`、`tbl_phonebook_mobile`、`tbl_campaign`、`tbl_campaign_log`
   - `www/f3cms/modules/Campaign/feed.php` 已提供最小 `createForPhonebook(...)` expansion surface
@@ -72,12 +77,25 @@
   - 已將 `sms_system/web_route_phonebook_campaign_flow.php` 收斂到新的 API testing / route contract 文件，且 formal smoke 現在同時驗證 `create_with_phones`、`create_from_phonebook`、`phonebook/mine`、`campaign/mine`
   - 已更新 `document/_sidebar.md`，讓 API testing guide 與 API route reference 成為正式可發現文件
   - 已更新 `document/guides/index.md` 與 `document/_sidebar.md`，讓 SMSSystem API sample 成為正式可發現文件
-  - 已更新 `document/glossary.md`，補入 API route contract、response envelope、web-route smoke 的共用術語
+  - 已更新 `document/glossary.md`，補入 API route contract、resp
+
+## Planned Follow-up Additions
+- 補齊 `Mobile` / `Phonebook` / `Campaign` 的 staff-side Gene Panel CRUD 後台範本與 route，並在 `www/tmpls` 內建立標準列表 / 編輯表單。
+- 定義 CRUD 後台的最小 smoke coverage：create / list / edit / delete 與 `subset / total / limit / page` list contract 對齊。
+- 確認後台 CRUD UI 僅負責操作入口與表單，實際資料寫入、M:N 綁定、queue 狀態更新仍由 owner module 與 worker 負責。
+- 若後續要擴大為完整 admin workflow，應另開 feature spec，而不是直接把 queue / provider / validation 邏輯塞進模板層。
+
+## Status Summary
+- Current stage: (Optimization)
+- Main implementation: complete
+- Validation: complete for the mainline SMSSystem flow, worker guardrails, and formal web-route flow
+- Remaining work: optional admin CRUD backend expansion; no blocking drift for the current feature scope
+- Decision: maintain the feature in archive-ready status unless new requirements explicitly reopen scope.onse envelope、web-route smoke 的共用術語
 
 ## Pending
 - 目前沒有未完成的 SMSSystem mainline 驗證 slice。
 - 目前沒有阻擋 `(Optimization)` 的關鍵缺口。
-- 目前沒有剩餘的 closeout gap；`history.md` 壓縮整理與 archive-ready 判定已完成。
+- 目前沒有剩餘的 closeout gap；`history.xml` 壓縮整理與 archive-ready 判定已完成。
 
 ## Risks
 - 若先做供應商串接再補資料結構，容易讓 queue / blacklist / rate limit 邏輯失去 owner boundary。

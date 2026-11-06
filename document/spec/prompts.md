@@ -6,7 +6,7 @@
 - 將 `<feature>`、`<stage>`、`<module>`、`<path>` 這類 placeholder 換成實際值。
 - 優先先跑 `idea -> (discuss) -> plan`，不要跳過前段直接要求產碼。
 - 若需求已經很清楚，可直接選用對應階段的 prompt，而不是整套全部重跑。
-- 多輪對話時，優先先讀 `history.md`，再視需要回讀 `idea.md`、`plan.md`、`check.md`、`optimization.md`。
+- 多輪對話時，優先先讀 `history.xml`，再視需要回讀 `idea.md`、`plan.md`、`check.md`、`optimization.md`。
 
 ## FDD 常駐規則對應模板
 
@@ -19,7 +19,7 @@
 1. 若任務涉及驗證、smoke、PHP script execution、workflow verification 或 post-change runtime checks，優先使用專案既有 Docker 環境，不優先用本機 PHP。
 2. 若任務涉及資料庫驗證、查詢或 schema 檢查，連線資訊以 `.env` 為預設真實來源，不要猜測或硬編碼帳密。
 3. 若任務涉及 F3CMS 架構、術語、流程或 feature 承接，先讀 `document/` 下對應文件，不要直接套用 generic framework assumptions。
-4. 若任務位於 `document/spec/<feature>/`，先讀 `history.md`，再用 `plan.md` 與 `check.md` 判斷下一步；除非文件顯示前面未完成，否則不要回到 `idea.md` 重跑。
+4. 若任務位於 `document/spec/<feature>/`，先讀 `history.xml`，再用 `plan.md` 與 `check.md` 判斷下一步；除非文件顯示前面未完成，否則不要回到 `idea.md` 重跑。
 
 要求：
 - 在真正動手前，先說明你準備讀哪些文件、使用哪個驗證環境，以及為什麼。
@@ -36,7 +36,7 @@
 請執行順序：
 1. 先確認要使用的 Docker service / container path
 2. 再執行既有 smoke 或驗證指令
-3. 最後回報驗證結果與是否需要更新 `history.md` 或 `check.md`
+3. 最後回報驗證結果與是否需要更新 `history.xml` 或 `check.md`
 
 ### 資料庫驗證模板
 
@@ -58,7 +58,7 @@
 請先套用以下規則：
 1. 把 `document/` 視為主要真實來源，不要直接依 generic MVC / CMS 假設下結論。
 2. 若是架構或分層問題，優先讀 guide / glossary / reference。
-3. 若是 feature 承接問題，優先讀 `document/spec/<feature>/history.md`，再讀 `plan.md`、`check.md`。
+3. 若是 feature 承接問題，優先讀 `document/spec/<feature>/history.xml`，再讀 `plan.md`、`check.md`。
 
 回答順序要求：
 1. 先說明你讀了哪些 `document/` 文件
@@ -70,7 +70,7 @@
 請承接 `document/spec/<feature>/` 的現況。
 
 執行順序要求：
-1. 先讀 `document/spec/<feature>/history.md`
+1. 先讀 `document/spec/<feature>/history.xml`
 2. 再讀 `plan.md` 與 `check.md`
 3. 只有在文件內容顯示前面未完成或需求已變更時，才回讀 `idea.md`
 
@@ -89,7 +89,7 @@
 - 驗證優先使用專案既有 Docker 環境
 - 資料庫驗證帳密以 `.env` 為準
 - F3CMS 架構、術語與流程以 `document/` 為主
-- 先從 current spec 指向的 `history.md` 開始，再用 `plan.md`、`check.md` 判斷下一步
+- 先從 current spec 指向的 `history.xml` 開始，再用 `plan.md`、`check.md` 判斷下一步
 
 回答與執行順序：
 1. 先讀 `document/spec/.current-spec.md`
@@ -99,7 +99,7 @@
 5. 若涉及驗證，優先採用 Docker / 既有 smoke 路徑
 6. 若涉及資料庫驗證，說明以 `.env` 為基準
 7. 若發現 drift，先指出 drift handling，不直接重做設計
-8. 完成後指出是否需要更新 current spec 的 `history.md`、`plan.md`、`check.md`
+8. 完成後指出是否需要更新 current spec 的 `history.xml`、`plan.md`、`check.md`
 
 ### FDD Review 模板
 
@@ -110,7 +110,7 @@
 - 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
 - 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
 - F3CMS 架構、術語與流程以 `document/` 為主
-- feature work 先讀 current spec 的 `history.md`，再用 `plan.md`、`check.md` 判斷下一步
+- feature work 先讀 current spec 的 `history.xml`，再用 `plan.md`、`check.md` 判斷下一步
 - 若文件與程式碼不一致，先指出差異與影響，再判斷是否需要回退或同步
 
 Review 順序要求：
@@ -118,7 +118,7 @@ Review 順序要求：
 2. 若指標檔無效，立即中斷並要求先執行 `FDD Focus`
 3. 再列出你讀了哪些 current spec 文件
 4. 先判斷目前處於哪一個 flow stage
-5. 檢查 `history.md`、`plan.md`、`check.md`、必要時 `idea.md` 是否彼此一致
+5. 檢查 `history.xml`、`plan.md`、`check.md`、必要時 `idea.md` 是否彼此一致
 6. 檢查文件與現況程式碼 / 驗證結果是否有漂移
 7. 先列出 findings，再給出最小修正建議
 
@@ -137,7 +137,7 @@ Review 順序要求：
 - 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
 - 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
 - 只有在 `check.md` 已確認主要實作與驗收完成後，才進入 `(Optimization)`
-- 穩定規則應從 feature 文件回寫到共用文件，而不是長期只留在 `history.md`
+- 穩定規則應從 feature 文件回寫到共用文件，而不是長期只留在 `history.xml`
 - 若任務涉及驗證，仍優先使用專案既有 Docker 路徑
 
 執行順序要求：
@@ -147,12 +147,12 @@ Review 順序要求：
 4. 盤點哪些穩定規則、詞彙、流程或參考資訊應回寫到 glossary / guides / references
 5. 盤點 `optimization.md` 應收錄哪些收尾內容
 6. 只做文件沉澱、詞彙整理、收尾同步，不回頭新增功能
-7. 完成後指出是否還缺哪些封存前條件
+7. 完成後指出是否可進入「階段性完工（無下一步計畫）」或仍需下一步
 
 輸出要求：
 - 先說明是否符合進入 `(Optimization)` 的前提
 - 再列出本輪要同步的共用文件與原因
-- 完成後指出還剩哪些 archive / 收尾缺口
+- 完成後指出是否有未完成需求 / checklist，與是否應標記「無下一步計畫」
 
 ### FDD Commit 模板
 
@@ -162,7 +162,7 @@ Review 順序要求：
 
 - 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
 - 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
-- 先讀 current spec 的 `history.md`，再用 `plan.md`、`check.md` 理解本輪完成範圍與 stage
+- 先讀 current spec 的 `history.xml`，再用 `plan.md`、`check.md` 理解本輪完成範圍與 stage
 - commit message 必須同時根據 spec 文件與目前 git working tree 產生，不可只看文件猜測
 - commit 預設只承接 current spec 範圍內的變更；若 working tree 有 unrelated dirty files，不可默默一起提交
 - 不可在未經使用者確認前直接執行 `git commit`
@@ -171,7 +171,7 @@ Review 順序要求：
 執行順序要求：
 1. 先讀 `document/spec/.current-spec.md`
 2. 確認目前 resolve 到哪個 spec
-3. 再讀該 spec 的 `history.md`、`plan.md`、`check.md`
+3. 再讀該 spec 的 `history.xml`、`plan.md`、`check.md`
 4. 檢查 git working tree，區分 current spec 相關變更與 unrelated dirty files
 5. 若有 unrelated dirty files，先詢問要排除還是納入
 6. 依 current spec 與實際變更產生 commit message
@@ -227,7 +227,7 @@ Review 順序要求：
 3. 確認對應的 `document/spec/<Spec>/` 是否唯一存在
 4. 若不存在，或 case-insensitive 比對出現多個候選，立即中斷並回報有效錯誤
 5. 若存在，建立或更新 `document/spec/.current-spec.md`
-6. 再讀該 spec 的 `history.md`、`plan.md`、`check.md`
+6. 再讀該 spec 的 `history.xml`、`plan.md`、`check.md`
 7. 先回答目前 stage、上一輪完成項、當前最小下一步
 8. 將後續任務都視為在該 spec 目標下執行
 
@@ -247,7 +247,7 @@ Review 順序要求：
 - 這一輪只做 migration 第 1 到第 3 步，不建立第一個真實 spec folder，也不做 prompt contract 驗證
 - 先讀 `document/guides/fdd_porting_guide.md` 與 `document/guides/fdd_migration_checklist.md`
 - 先把 `.github/copilot-instructions.md` 與 `.github/prompts/fdd-*.prompt.md` 視為主要改寫標的
-- `document/flow.md`、`document/flow.llm.md`、`.current-spec.md` pointer 機制、以及 `idea.md / history.md / plan.md / check.md / optimization.md` artifact ownership 預設先視為可保留，除非新專案有明確衝突
+- `document/flow.md`、`document/flow.llm.md`、`.current-spec.md` pointer 機制、以及 `idea.md / history.xml / plan.md / check.md / optimization.md` artifact ownership 預設先視為可保留，除非新專案有明確衝突
 - 不要把這一輪擴張成 feature implementation、spec 建立、或實際驗證執行
 
 執行順序要求：
@@ -322,7 +322,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 初始化 feature spec
 
-請依 [../flow.md](../flow.md) 的 SOP，為 `document/spec/<feature>/` 初始化 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.md` 的基本結構。
+請依 [../flow.md](../flow.md) 的 SOP，為 `document/spec/<feature>/` 初始化 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.xml` 的基本結構。
 
 要求：
 - 不要直接進入實作細節
@@ -331,7 +331,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 初始化 history
 
-請為 `document/spec/<feature>/history.md` 建立初版內容。
+請為 `document/spec/<feature>/history.xml` 建立初版內容。
 
 要求：
 - 使用固定格式，標題必須是 `### 第 0 輪討論結果`
@@ -347,7 +347,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 目前有新的需求、限制、假設修正或 scope 變動。請先完整理解需求，再更新 `document/spec/<feature>/idea.md` 與必要的 spec 文件。
 
 執行順序要求：
-1. 先讀 `document/spec/<feature>/history.md`，理解目前進度、最近結論、阻塞、下一步與已被推翻的假設。
+1. 先讀 `document/spec/<feature>/history.xml`，理解目前進度、最近結論、阻塞、下一步與已被推翻的假設。
 2. 再讀 `document/spec/<feature>/idea.md`；若新需求可能影響拆分或驗收，再補讀 `plan.md`、`check.md`，必要時才讀 `optimization.md`。
 3. 先整理「這次新需求到底改變了什麼」：
 	- 新增了哪些需求目標或限制
@@ -359,7 +359,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 文件更新要求：
 - 先以最小必要修改更新 `idea.md`，保留仍然有效的既有內容
 - 若新需求已影響 `plan.md`、`check.md` 或目前 flow 階段，必須同步指出哪些段落需要承接修正
-- 若有新結論、假設修正、回退點、阻塞或下一步改變，必須同步新增一輪到 `history.md`
+- 若有新結論、假設修正、回退點、阻塞或下一步改變，必須同步新增一輪到 `history.xml`
 - 不要直接產生程式碼
 - 不要跳過理解階段直接進入實作方案
 
@@ -376,7 +376,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - 補上需求目標、範圍、限制、依賴、風險、未決事項
 - 若是 F3CMS 功能，額外指出可能涉及的 Entity、Module 與層級影響
 - 不要直接產生程式碼
-- 若有新增或確認結論，順手以新一輪格式補到 `history.md`
+- 若有新增或確認結論，順手以新一輪格式補到 `history.xml`
 
 ### 檢查 idea 是否足夠進 plan
 
@@ -407,7 +407,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - 依重要性排序
 - 區分「不解決不能進 plan」與「可延後決定」
 - 若是 F3CMS 需求，優先指出 Entity、模組邊界、資料建模與權限風險
-- 若已形成明確結論，補一段可回寫到 `history.md` 的決議摘要
+- 若已形成明確結論，補一段可回寫到 `history.xml` 的決議摘要
 
 ### AI 協助收斂風險
 
@@ -436,7 +436,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - 拆出 stage、子任務、依賴、風險、fallback、驗收點
 - 若是 F3CMS 功能，至少區分 schema、Feed、Reaction、Outfit、Kit、文件同步項
 - 標出哪些項目適合拆成獨立 commit 或 PR
-- 建立或更新 `history.md` 中的目前進度與下一步，且必須使用固定輪次格式新增一輪
+- 建立或更新 `history.xml` 中的目前進度與下一步，且必須使用固定輪次格式新增一輪
 
 ### 檢查 plan 是否可執行
 
@@ -469,7 +469,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 3. 實作對應變更
 4. 根據 `check.md` 驗證本 stage 已完成的項目
 5. 說明尚未完成與風險
-6. 更新 `document/spec/<feature>/history.md`
+6. 更新 `document/spec/<feature>/history.xml`
 7. 產生 git commit 所需說明
 
 ### 只做本階段，不擴張範圍
@@ -500,7 +500,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - 用 checklist 表達
 - 區分功能完成、風險驗證、回歸檢查、文件同步
 - 若是 F3CMS 功能，加入模組邊界、資料層落點、權限、query/performance 檢查
-- 若有重要驗收結論，補一段可用固定輪次格式回寫到 `history.md` 的摘要
+- 若有重要驗收結論，補一段可用固定輪次格式回寫到 `history.xml` 的摘要
 
 ### 執行 check review
 
@@ -534,17 +534,17 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 2. 將 feature 的特殊詞彙整理進 [../glossary.md](../glossary.md)
 3. 將 feature 中形成穩定規則的部分回寫到適合的共用文件
 4. 指出需要更新的 sidebar、guide、reference 或其他入口文件
-5. 壓縮並整理 `document/spec/<feature>/history.md`
+5. 壓縮並整理 `document/spec/<feature>/history.xml`
 
-### 更新 history.md
+### 更新 history.xml
 
-請根據這一輪最新討論或文件變更，更新 `document/spec/<feature>/history.md`。
+請根據這一輪最新討論或文件變更，更新 `document/spec/<feature>/history.xml`。
 
 格式要求：
 - 只能在最上方新增一輪，不可改寫舊輪內容
-- 小標題固定使用：`### 第 xx 輪討論結果`
+- 使用 `<round index="...">`，並放在 `<history>` 之下
 - 內容由新到舊排序
-- 每一輪都必須包含「最新討論的下一步選項」
+- 每一輪都必須包含 `current_focus`、`ai_actions`、`next_steps`
 - 若本輪有假設被推翻、需要回退、目前卡住的 stage 改變，也必須明確寫出
 
 內容要求：
@@ -555,28 +555,28 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 禁止事項：
 - 不要覆蓋舊輪
-- 不要把 `history.md` 改寫成一般會議記錄或自由段落
+- 不要把 `history.xml` 改寫成一般會議記錄或自由段落
 - 不要省略「最新討論的下一步選項」
 
-### 壓縮 history.md
+### 壓縮 history.xml
 
-請依 [../flow.md](../flow.md) 的 History 壓縮 SOP，整理 `document/spec/<feature>/history.md`。
+請依 [../flow.md](../flow.md) 的 History 壓縮 SOP，整理 `document/spec/<feature>/history.xml`。
 
 要求：
 - 只能新增一輪摘要性壓縮結果，不可直接刪改舊輪
-- 小標題固定使用：`### 第 xx 輪討論結果`
+- 使用 `<round index="...">` 並維持 XML 結構
 - 明確標示本輪為摘要性壓縮整理
 - 至少整理：已完成事項、目前狀態、未解問題或風險、最新討論的下一步選項
 - 壓縮後仍要保留目前 stage、阻塞點、回退點與仍有效的結論
 
-### 封存 feature spec
+### 階段性完工檢查（非封存）
 
-請執行 `document/spec/<feature>` 的封存作業。
+請檢查 `document/spec/<feature>` 是否可標記為「無下一步計畫」。
 
 要求：
-1. 檢查 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.md` 是否已完整
-2. 視需要將 `document/spec/<feature>/` 移動到封存區
-3. 更新受影響的導覽或路徑
+1. 檢查 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.xml` 是否已完整
+2. 若需求沒有漂移且沒有未完成需求 / checklist，於 `history.xml` 最新一輪標記「無下一步計畫」
+3. 若仍有未完成需求或 checklist，新增一輪並留下明確「下一步事項」
 4. 產生 git commit 所需說明
 
 ## F3CMS 常用補充提示
@@ -647,16 +647,16 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 目前正在處理 `document/spec/<feature>/`。
 
-請先讀 `document/spec/<feature>/history.md`，再回答：
+請先讀 `document/spec/<feature>/history.xml`，再回答：
 - 目前在哪個 flow 階段
 - 已完成哪些事
 - 下一個最合理的小步驟是什麼
 
-若 `history.md` 資訊不足，再指出還需要補讀哪些 spec 文件。
+若 `history.xml` 資訊不足，再指出還需要補讀哪些 spec 文件。
 
 ### 更新 history
 
-請根據本輪對話與目前變更，更新 `document/spec/<feature>/history.md`。
+請根據本輪對話與目前變更，更新 `document/spec/<feature>/history.xml`。
 
 至少包含：
 - 本輪完成事項
@@ -666,7 +666,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 將結論回寫到 history
 
-請把本輪 discuss / plan / check 的明確結論，整理成可直接附加到 `document/spec/<feature>/history.md` 的摘要。
+請把本輪 discuss / plan / check 的明確結論，整理成可直接附加到 `document/spec/<feature>/history.xml` 的摘要。
 
 要求：
 - 不要重抄整段對話
@@ -675,7 +675,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 檢查 history 是否落後
 
-請檢查 `document/spec/<feature>/history.md` 是否已落後於 `idea.md`、`plan.md`、`check.md` 的最新狀態。
+請檢查 `document/spec/<feature>/history.xml` 是否已落後於 `idea.md`、`plan.md`、`check.md` 的最新狀態。
 
 請指出：
 - 哪些結論沒有同步進 history
@@ -684,7 +684,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### history 壓縮
 
-請壓縮 `document/spec/<feature>/history.md`，讓下一輪對話可以快速承接。
+請壓縮 `document/spec/<feature>/history.xml`，讓下一輪對話可以快速承接。
 
 要求：
 - 保留已確認決議
@@ -695,7 +695,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 由 history 產生接手摘要
 
-請根據 `document/spec/<feature>/history.md`，整理一份給下一輪對話直接使用的接手摘要。
+請根據 `document/spec/<feature>/history.xml`，整理一份給下一輪對話直接使用的接手摘要。
 
 至少包含：
 - Feature 摘要
@@ -706,14 +706,14 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ## 多輪對話版提示詞
 
-這一節用來處理同一個 feature 分多輪對話推進的情境。重點不是一次做完，而是每一輪都能先承接 `history.md`，再只往前推進一小步。
+這一節用來處理同一個 feature 分多輪對話推進的情境。重點不是一次做完，而是每一輪都能先承接 `history.xml`，再只往前推進一小步。
 
 ### 承接上一輪進度
 
 目前正在處理 `document/spec/<feature>/`。
 
 請先讀：
-- `document/spec/<feature>/history.md`
+- `document/spec/<feature>/history.xml`
 - `document/spec/<feature>/idea.md`
 - `document/spec/<feature>/plan.md`
 - `document/spec/<feature>/check.md`
@@ -729,7 +729,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 請承接 `document/spec/<feature>/` 的現況，只處理下一步。
 
 要求：
-- 先以 `history.md` 為主判斷現況
+- 先以 `history.xml` 為主判斷現況
 - 不要從 `idea` 重新開始，除非文件內容顯示前面確實未完成
 - 若前一輪已有明確結論，直接沿用，不要重複討論
 - 若發現前置假設有問題，指出是哪一段需要回退
@@ -786,7 +786,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 目前功能已開發到一半，請檢查是否有文件需要提前同步，而不要等到最後才一次補。
 
 請優先檢查：
-- `history.md`
+- `history.xml`
 - `glossary.md`
 - guides / references 是否已有相關內容需要補註
 - `plan.md` 與 `check.md` 是否反映最新決策
@@ -801,7 +801,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - 尚未解決的關鍵問題
 - 下一輪最合理的起手動作
 
-並同步更新 `history.md`，不要只輸出在對話中。
+並同步更新 `history.xml`，不要只輸出在對話中。
 
 ### 多輪 review 模式
 
@@ -819,7 +819,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 請：
 - 判斷目前是否已可進入 `(Optimization)`
 - 若還不行，指出最後缺哪幾項
-- 若可以，列出本輪應完成的文件化與封存前準備事項
+- 若可以，列出本輪應完成的文件化與階段性完工準備事項（含是否標記「無下一步計畫」）
 
 ## 反例提示詞
 
@@ -946,11 +946,11 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - 已確認的結論會被覆蓋或稀釋
 - 造成 spec 文件與對話紀錄不同步
 
-更常見的根本問題是沒有維護 `history.md`，導致每一輪都得重新判讀整包文件。
+更常見的根本問題是沒有維護 `history.xml`，導致每一輪都得重新判讀整包文件。
 
 建議改寫：
 
-請先讀 `document/spec/<feature>/history.md`，承接目前進度與所處 flow 階段，再只提出下一個最合理的小步驟；若 history 不足，再指出需要補讀哪些文件。
+請先讀 `document/spec/<feature>/history.xml`，承接目前進度與所處 flow 階段，再只提出下一個最合理的小步驟；若 history 不足，再指出需要補讀哪些文件。
 
 ### 反例 9：把 AI 當成只會產碼的工具
 
@@ -979,5 +979,3 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 建議改寫：
 
 請以 F3CMS 的分層方式分析這個需求，說明哪些責任應放 Feed、Reaction、Outfit、Kit，以及哪些文件需要同步更新。
-
-

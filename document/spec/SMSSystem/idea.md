@@ -13,6 +13,7 @@
 
 - **雙供應商策略 (Provider Strategy)**：實作 AWS SNS 與三竹簡訊邏輯，並以門號 routing rule 決定供應商：`+886` 走三竹，其它走 AWS。
 - **高度正規化名單管理**：實作獨立的手機主檔 (`Mobile`) 與通訊錄主檔 (`Phonebook`)，支援全域異常/拒收狀態控管。
+- **後台 CRUD 管理**：為 `Mobile`、`Phonebook`、`Campaign` 補齊 staff-facing 行政 CRUD 後台，採用 Gene Panel 套件模式，於 `www/tmpls` 內建立列表、搜尋、表單與操作入口，讓後台可直接管理資料與發送任務。
 - **批次排程 (Batch & Schedule)**：支援單次 5000 筆通訊錄綁定發送，允許指定「排程時間」。
 - **非同步背景佇列與防刷 (Queue & Rate Limit)**：由 Cronjob 背景消化佇列，並執行「同門號 5 分鐘限發 1 次」的業務防護。
 
@@ -28,6 +29,17 @@
 1. **`Mobile` (手機門號模組)**：管理全域手機號碼與狀態 (可用/拒收)。
 2. **`Phonebook` (通訊錄模組)**：管理目標發送群組，與 `Mobile` 為 M:N 關聯。
 3. **`Campaign` (發送任務模組)**：管理發送合約，並將目標展開為專屬附屬日誌佇列 (`CampaignLog`)。工具層 (`kCampaign`) 負責 API 呼叫與防刷邏輯。
+
+#### 5.1 Gene Panel 後台 CRUD 需求
+
+為了讓這三個實體能夠被後台管理員直接維護，系統需補齊 staff-side CRUD backend，並沿用 Gene Panel 的前端套件範型。
+
+- **列表頁**：提供搜尋/篩選、狀態切換、分頁與批次操作；後台可依關鍵字查詢 `Mobile` 門號、`Phonebook` 名稱、`Campaign` 狀態與排程時間。
+- **建立 / 編輯表單**：透過 `www/tmpls` 內的欄位元件與按鈕元件組成 CRUD 表單，支援新增、修改與刪除；表單應遵守既有 Gene Panel 的資料屬性與後端 API contract。
+- **資料分層**：UI 仍然屬於 Gene Panel / `tmpls` 範圍，實際資料寫入與驗證仍留在 `Mobile` / `Phonebook` / `Campaign` 的 owner module 與 Feed / Reaction boundary，不直接把後台表單邏輯塞進通用 helper。
+- **同一責任邊界**：CRUD 後台負責管理資料，而非取代發送 worker；`Campaign` 建立後仍須透過 `CampaignLog` 與 worker 機制進行非同步處理。
+
+這類 CRUD 後台是對應 `www/tmpls` 模板工廠的一種標準管理頁面設計：搜尋元件 + 清單元件 + 欄位元件 + 按鈕元件，與既有 F3CMS 的管理後台風格一致。
 
 ### 6. 角色與參與者 (Actors and Roles)
 

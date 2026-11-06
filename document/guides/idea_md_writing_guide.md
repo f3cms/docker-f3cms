@@ -64,7 +64,7 @@ It should be strong enough that later discuss can focus on real tradeoffs instea
 - a place to hide unresolved assumptions behind vague wording
 
 Those belong in other artifacts:
-- progress and next-step tracking belong in `history.md`
+- progress and next-step tracking belong in `history.xml`
 - executable stage splitting belongs in `plan.md`
 - completion and risk verification belong in `check.md`
 
