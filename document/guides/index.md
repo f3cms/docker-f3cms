@@ -34,6 +34,7 @@
 - [data_architecture_checklist.md](data_architecture_checklist.md)
 - [fdd_porting_guide.md](fdd_porting_guide.md)
 - [fdd_migration_checklist.md](fdd_migration_checklist.md)
+- [fdd_history_lifecycle_update_log.md](fdd_history_lifecycle_update_log.md)
 - [smoke_s_layer_guide.md](smoke_s_layer_guide.md)
 - [smoke_result_tier_rerun_guide.md](smoke_result_tier_rerun_guide.md)
 - [testmode_development_guide.md](testmode_development_guide.md)

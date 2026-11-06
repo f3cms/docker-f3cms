@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spec_check feature="SMSSystem" current_stage="discuss">
+  <metadata>
+    <source_markdown>document/spec/SMSSystem/check.md</source_markdown>
+    <last_synced_at>2026-11-06T22:10:33.844+08:00</last_synced_at>
+  </metadata>
+
+  <scenario_suite>
+    <scenario id="SMS-HISTORY-XML-FLOW" type="process" status="passed">
+      <given>FDD lifecycle moved to persistent spec and history.xml rounds.</given>
+      <when>Flow and skill docs are aligned to history.xml and next-step semantics.</when>
+      <then>Round-based continuation works without Current Stage in plan/check artifacts.</then>
+      <evidence>
+        <method>document review</method>
+        <artifact_path>document/guides/fdd_history_lifecycle_update_log.md</artifact_path>
+        <artifact_hash algorithm="sha256">pending</artifact_hash>
+      </evidence>
+    </scenario>
+
+    <scenario id="SMS-CRUD-BACKOFFICE" type="feature" status="pending">
+      <given>Admin CRUD is required for Mobile/Phonebook/Campaign entities.</given>
+      <when>Gene Panel templates and interactions are implemented for each entity.</when>
+      <then>Admin users can complete list/create/edit/delete with expected UI controls.</then>
+      <evidence>
+        <method>implementation pending</method>
+        <artifact_path>document/spec/SMSSystem/history.xml</artifact_path>
+        <artifact_hash algorithm="sha256">pending</artifact_hash>
+      </evidence>
+    </scenario>
+  </scenario_suite>
+</spec_check>

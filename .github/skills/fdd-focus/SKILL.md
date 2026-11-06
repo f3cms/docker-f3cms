@@ -11,11 +11,11 @@ Before doing any work, apply these rules:
 1. Treat [document/flow.llm.md](../../document/flow.llm.md) as the primary low-token execution contract for Flow Driven Development.
 2. Treat [document/flow.md](../../document/flow.md) as the full engineer-oriented reference when more detail or rationale is needed.
 3. Treat [copilot-instructions.md](../copilot-instructions.md) as the workspace-level always-on ruleset.
-4. Create or update [document/spec/.current-spec.md](../../document/spec/.current-spec.md) only after confirming that the requested target spec folder actually exists.
+4. Create or update [document/spec/.current-spec.xml](../../document/spec/.current-spec.xml) only after confirming that the requested target spec folder actually exists.
 5. The user input may be either a spec folder name like `WorkflowEngine` or a path like `document/spec/WorkflowEngine`.
 6. Resolve spec folders using this order: exact path/name match first; if no exact match exists, perform a case-insensitive lookup under [document/spec](../../document/spec) and accept it only when there is exactly one match whose only difference is letter casing.
 7. If the requested spec folder still does not resolve uniquely, stop immediately and report that exact invalid or ambiguous target instead of guessing or choosing another spec.
-8. After resolving a valid target spec, treat its `history.xml`, `plan.md`, and `check.md` as the primary continuation set for the task.
+8. After resolving a valid target spec, treat its `history.xml`, `plan.xml`, and `check.xml` as the primary continuation set for the task.
 9. Treat `history.xml` as structured XML with `<history><round index="...">`; each round should include `current_focus`, `ai_actions`, and `next_steps`.
 10. Do not restart from `idea.md` unless the spec documents show the earlier stages are incomplete or a premise has been invalidated.
 11. If validation is needed, prefer the project's existing Docker-based verification routes.
@@ -25,10 +25,10 @@ Required execution order:
 1. First parse the user's requested spec name or path.
 2. Resolve it to a folder under [document/spec](../../document/spec), using exact match first and case-insensitive fallback only when the only difference is letter casing.
 3. If the requested target is invalid or resolves to multiple case-insensitive matches, stop immediately and report the invalid or ambiguous target.
-4. If it resolves uniquely, create or update [document/spec/.current-spec.md](../../document/spec/.current-spec.md) so it points to that spec.
+4. If it resolves uniquely, create or update [document/spec/.current-spec.xml](../../document/spec/.current-spec.xml) so it points to that spec.
 5. Confirm which spec folder is now active and whether it was matched exactly or by case-insensitive fallback.
 6. Read the resolved spec's `history.xml` first.
-7. Then read its `plan.md` and `check.md`.
+7. Then read its `plan.xml` and `check.xml`.
 8. Identify the current flow stage, what the last round actually completed, and the smallest valid next step.
 9. Execute the user's request within that resolved spec scope.
 
@@ -39,7 +39,7 @@ Response expectations:
 - If the target is invalid or ambiguous, stop and say so clearly.
 - If the target is valid, summarize the current stage and handoff point before doing any broader work.
 - Keep the work within the resolved feature scope unless the user explicitly expands it.
-- After finishing, state whether the resolved spec's `history.xml`, `plan.md`, or `check.md` should be updated.
+- After finishing, state whether the resolved spec's `history.xml`, `plan.xml`, or `check.xml` should be updated.
 
 Spec switch and task:
 

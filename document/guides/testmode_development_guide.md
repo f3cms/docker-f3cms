@@ -114,8 +114,8 @@ When working on TestMode-related tests:
 
 ### For LLMs
 
-1. Resolve the current spec from `document/spec/.current-spec.md`.
-2. Read that spec's `history.xml`, then `plan.md`, then `check.md`.
+1. Resolve the current spec from `document/spec/.current-spec.xml`.
+2. Read that spec's `history.xml`, then `plan.xml`, then `check.xml`.
 3. Use this guide when the task involves smoke location, naming, validation, or test-system boundaries.
 4. Only reopen TestMode structure design if the spec files show a real prerequisite failure.
 

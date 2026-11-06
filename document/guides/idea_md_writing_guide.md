@@ -65,8 +65,8 @@ It should be strong enough that later discuss can focus on real tradeoffs instea
 
 Those belong in other artifacts:
 - progress and next-step tracking belong in `history.xml`
-- executable stage splitting belongs in `plan.md`
-- completion and risk verification belong in `check.md`
+- executable stage splitting belongs in `plan.xml`
+- completion and risk verification belong in `check.xml`
 
 ## Why idea.md Quality Matters
 
@@ -419,7 +419,7 @@ The same applies if the document has abstract intent but still lacks strong exam
 Instead:
 - keep the feature in early exploration
 - use discuss to clarify missing assumptions
-- update `idea.md` before expecting `plan.md` to become stable
+- update `idea.md` before expecting `plan.xml` to become stable
 
 ## Suggested Follow-Up Reading
 - requirement breakdown methods for SA

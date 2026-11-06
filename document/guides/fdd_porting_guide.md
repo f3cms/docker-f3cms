@@ -58,7 +58,7 @@ These two files define the stage model, entry and exit criteria, history-first c
 ### B. Workspace-Level LLM Rules
 - [../../.github/copilot-instructions.md](../../.github/copilot-instructions.md)
 
-This file is what turns FDD from documentation into always-on working behavior. Without it, the LLM may stop reading `history.xml` first, stop preferring Docker, or stop updating `plan.md` / `check.md` / `history.xml` consistently.
+This file is what turns FDD from documentation into always-on working behavior. Without it, the LLM may stop reading `history.xml` first, stop preferring Docker, or stop updating `plan.xml` / `check.xml` / `history.xml` consistently.
 
 ### C. Prompt Entry Points
 - [../../.github/prompts/fdd-sprint.prompt.md](../../.github/prompts/fdd-sprint.prompt.md)
@@ -80,16 +80,16 @@ document/
   flow.md
   flow.llm.md
   spec/
-    .current-spec.md
+    .current-spec.xml
     <FeatureA>/
       idea.md
       history.xml
-      plan.md
-      check.md
+      plan.xml
+      check.xml
       optimization.md
 ```
 
-The `.current-spec.md` pointer is essential. It lets the LLM resolve the current target without guessing which feature the team is discussing.
+The `.current-spec.xml` pointer is essential. It lets the LLM resolve the current target without guessing which feature the team is discussing.
 
 ## What You Can Copy As-Is
 
@@ -97,8 +97,8 @@ These parts are usually portable with no or minimal wording changes:
 - stage chain in `flow.md`
 - stage判斷順序與 drift handling in `flow.llm.md`
 - `history.xml` first rule
-- `plan.md` / `check.md` / `optimization.md` artifact ownership model
-- `.current-spec.md` pointer mechanism
+- `plan.xml` / `check.xml` / `optimization.md` artifact ownership model
+- `.current-spec.xml` pointer mechanism
 - FDD prompt structure and execution order
 
 Portable means the logic is reusable, not that every noun must remain unchanged.
@@ -155,8 +155,8 @@ To preserve that bias, the migrated project must teach the LLM five concrete thi
 The LLM must be instructed to read in this order:
 1. current spec pointer
 2. target `history.xml`
-3. target `plan.md`
-4. target `check.md`
+3. target `plan.xml`
+4. target `check.xml`
 5. shared process or architecture documents
 6. `idea.md` only if earlier documents are incomplete or invalidated
 
@@ -166,7 +166,7 @@ If this order is not preserved, the LLM tends to restart design from `idea.md` a
 
 The migrated rules must state explicitly:
 - `history.xml` is the stage handoff file
-- `plan.md` and `check.md` are support files for execution and acceptance
+- `plan.xml` and `check.xml` are support files for execution and acceptance
 - `idea.md` is not the default continuation entry point
 
 ### 3. What Counts as the Smallest Valid Next Step
@@ -195,9 +195,9 @@ The migrated rules should force explicit artifact updates.
 Typical mapping:
 - `idea` round: update `idea.md`
 - `(discuss)` round: update `history.xml`
-- `plan` round: update `plan.md` and often `check.md`
+- `plan` round: update `plan.xml` and often `check.xml`
 - `(done)` round: update implementation plus `history.xml`
-- `check` round: update `check.md` and `history.xml`
+- `check` round: update `check.xml` and `history.xml`
 - `(Optimization)` round: update shared docs and `optimization.md`
 
 If this is not written down, progress drifts back into chat-only state.
@@ -218,7 +218,7 @@ If you are porting from this repository, you can also use the helper script dire
 ./bin/port_fdd.sh /path/to/new-project
 ```
 
-This script copies the current FDD bundle, creates `document/spec/`, and initializes a placeholder `document/spec/.current-spec.md` so the receiving project has the minimum handoff structure before you rewrite project-bound rules.
+This script copies the current FDD bundle, creates `document/spec/`, and initializes a placeholder `document/spec/.current-spec.xml` so the receiving project has the minimum handoff structure before you rewrite project-bound rules.
 
 ### Step 2: Rewrite Project-Bound Rules
 
@@ -232,7 +232,7 @@ Before using FDD in the new project, replace:
 ### Step 3: Create the Spec Skeleton
 
 Establish:
-- `document/spec/.current-spec.md`
+- `document/spec/.current-spec.xml`
 - at least one real feature folder
 - the five base spec files in that feature folder
 
@@ -248,7 +248,7 @@ Test these prompt behaviors in the new project:
 - `FDD Retrospective`
 
 The test should confirm that the LLM:
-- resolves `.current-spec.md`
+- resolves `.current-spec.xml`
 - reads `history.xml` first
 - states current stage correctly
 - chooses the smallest next step
@@ -275,9 +275,9 @@ Use this checklist before declaring the migration stable.
 - [ ] Workspace instructions tell the LLM how validation should run
 - [ ] Workspace instructions tell the LLM how DB verification should resolve source of truth
 - [ ] Prompt entry points exist for focus, sprint, review, refactor, and retrospective
-- [ ] The spec root contains `.current-spec.md`
-- [ ] Feature folders use `idea.md`, `history.xml`, `plan.md`, `check.md`, `optimization.md`
-- [ ] The LLM reads `history.xml` before `plan.md` and `check.md`
+- [ ] The spec root contains `.current-spec.xml`
+- [ ] Feature folders use `idea.md`, `history.xml`, `plan.xml`, `check.xml`, `optimization.md`
+- [ ] The LLM reads `history.xml` before `plan.xml` and `check.xml`
 - [ ] The LLM does not restart from `idea.md` unless required
 - [ ] The LLM reports drift before changing direction
 - [ ] The LLM updates the expected artifact files after each round
@@ -288,7 +288,7 @@ Use this checklist before declaring the migration stable.
 
 This preserves concepts but not behavior. The LLM still acts generically because no prompt or workspace rule enforces the workflow.
 
-### Copying prompts without `.current-spec.md`
+### Copying prompts without `.current-spec.xml`
 
 This removes target resolution. The LLM can no longer reliably know which feature to continue.
 
@@ -312,7 +312,7 @@ Suggested prompt:
 
 ```text
 請依 FDD 承接目前 feature。
-先讀 current spec pointer，再讀 history.xml、plan.md、check.md。
+先讀 current spec pointer，再讀 history.xml、plan.xml、check.xml。
 先回答目前 stage、上一輪完成項與最小下一步。
 若發現 drift，先指出 drift，不要直接重做設計。
 若需要驗證，請使用本專案規定的驗證環境。

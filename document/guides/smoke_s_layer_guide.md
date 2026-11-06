@@ -124,8 +124,8 @@ When working on Smoke S Layer code:
 
 ### For LLMs
 
-1. Resolve the current spec from `document/spec/.current-spec.md`.
-2. Read that spec's `history.xml`, then `plan.md`, then `check.md`, then `optimization.md` when present.
+1. Resolve the current spec from `document/spec/.current-spec.xml`.
+2. Read that spec's `history.xml`, then `plan.xml`, then `check.xml`, then `optimization.md` when present.
 3. Use this guide when the task involves smoke ownership, entrypoint rules, path grammar, or runtime guards.
 4. Only reopen Smoke S Layer design if the current spec files show a real prerequisite failure.
 

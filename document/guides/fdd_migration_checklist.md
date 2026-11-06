@@ -77,8 +77,8 @@
 
 ### 2A. Doc Root and Spec Resolution Rules
 - [ ] Replace any stale `document/` wording if the receiving project uses a different docs root.
-- [ ] Keep `.current-spec.md` pointer resolution intact unless the receiving project intentionally changes the spec-pointer contract.
-- [ ] Keep the rule that `history.xml` is read before `plan.md` and `check.md`.
+- [ ] Keep `.current-spec.xml` pointer resolution intact unless the receiving project intentionally changes the spec-pointer contract.
+- [ ] Keep the rule that `history.xml` is read before `plan.xml` and `check.xml`.
 
 ### 2B. Validation Environment Wording
 - [ ] Replace source-project validation instructions such as Docker compose services, PHP commands, route checks, or smoke script paths.
@@ -104,8 +104,8 @@
 - [ ] [../flow.md](../flow.md) is still acceptable as the full process definition.
 - [ ] [../flow.llm.md](../flow.llm.md) is still acceptable as the low-token execution contract.
 - [ ] `history.xml`-first continuation still matches how the receiving project wants FDD to behave.
-- [ ] `.current-spec.md` pointer resolution still matches how the receiving project wants feature context resolved.
-- [ ] `idea.md` / `history.xml` / `plan.md` / `check.md` / `optimization.md` artifact ownership still fits the receiving project.
+- [ ] `.current-spec.xml` pointer resolution still matches how the receiving project wants feature context resolved.
+- [ ] `idea.md` / `history.xml` / `plan.xml` / `check.xml` / `optimization.md` artifact ownership still fits the receiving project.
 
 ### Things To Explicitly Not Rewrite In This Pass
 - [ ] Do not rewrite stage names just because the project language changed.

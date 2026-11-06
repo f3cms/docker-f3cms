@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spec_plan feature="SMSSystem" current_stage="discuss">
+  <metadata>
+    <source_markdown>document/spec/SMSSystem/plan.md</source_markdown>
+    <last_synced_at>2026-11-06T22:10:33.844+08:00</last_synced_at>
+  </metadata>
+
+  <stages>
+    <stage index="6" name="Gene Panel CRUD Backoffice Implementation" status="in_progress">
+      <task id="SMS-CRUD-MOBILE-TMPL">
+        <title>Mobile staff template scaffold</title>
+        <description>Use tmpls/{entity} naming and keep UI-only responsibilities in template files.</description>
+        <acceptance>`www/tmpls/mobile/simple.html` exists and follows Gene Panel list/form structure.</acceptance>
+        <fallback>Revert to previous stable template and re-apply naming convention.</fallback>
+      </task>
+      <task id="SMS-CRUD-PHONEBOOK">
+        <title>Phonebook CRUD admin slice</title>
+        <description>Create the minimal Phonebook CRUD admin template and wire to existing backend boundary.</description>
+        <acceptance>Phonebook template exists in `www/tmpls/phonebook/` and uses standard Gene Panel interactions.</acceptance>
+        <fallback>Pause template expansion and record unresolved contract in history.xml.</fallback>
+      </task>
+      <task id="SMS-CRUD-CAMPAIGN">
+        <title>Campaign CRUD admin slice</title>
+        <description>Create Campaign admin template slice and include queue status display path.</description>
+        <acceptance>Campaign template exists in `www/tmpls/campaign/` and supports list/query/edit entry path.</acceptance>
+        <fallback>Keep only validated sub-slice and record remaining steps in history.xml.</fallback>
+      </task>
+    </stage>
+  </stages>
+</spec_plan>

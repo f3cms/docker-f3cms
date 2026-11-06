@@ -4,7 +4,7 @@
 
 這條 flow 本身不分前端或後端，也不綁定特定技術框架。對 F3CMS 而言，差別不在於要不要改 flow，而在於每一步應該補哪些 F3CMS 特有的判斷。
 
-除了 `idea.md`、`plan.md`、`check.md`、`optimization.md` 之外，建議每個 feature 另外維護一份 `history.xml`，用來記錄多輪開發過程中的決議、進度、風險與當下狀態。
+除了 `idea.md`、`plan.xml`、`check.xml`、`optimization.md` 之外，建議每個 feature 另外維護一份 `history.xml`，用來記錄多輪開發過程中的決議、進度、風險與當下狀態。
 
 `history.xml` 應視為 flow 開發模式中的強制承接檔，而不是可有可無的補充筆記。只要有發生討論，就應把可承接的摘要寫進 `history.xml`；其中凡是與目前進度、stage 推進、阻塞、回退點、下一步有關的討論，都必須在當輪同步更新，不應只留在對話或 PR 討論中。
 
@@ -34,7 +34,7 @@
 - `(Optimization)` 是整個 flow 的最後一步，不是中途承接文件。
 - 在 feature 仍處於 `idea`、`(discuss)`、`plan`、`(done)`、`check` 任一階段時，`optimization.md` 應維持空白，或最多只保留檔名 / 標題，不應預先寫入正式內容。
 - 開發中的進度、卡點、下一步、暫時性收斂與中途判斷，都應寫進 `history.xml`，不是先寫進 `optimization.md`。
-- 只有當 `check.md` 已確認主要開發與驗收已完成，正式進入 `(Optimization)` 後，才開始撰寫 `optimization.md`。
+- 只有當 `check.xml` 已確認主要開發與驗收已完成，正式進入 `(Optimization)` 後，才開始撰寫 `optimization.md`。
 
 ## Command 與 Stage 對應
 
@@ -46,11 +46,11 @@ FDD 指令是操作入口，不等於 stage 本身。stage 仍以 `idea -> (disc
 - 使用時機：開始承接某個 feature、切換到另一個 spec、或 current spec pointer 失效時。
 
 ### `FDD Sprint`
-- 用途：依 current spec 的 `history.xml`、`plan.md`、`check.md` 推進本輪最小可交付工作。
+- 用途：依 current spec 的 `history.xml`、`plan.xml`、`check.xml` 推進本輪最小可交付工作。
 - 對應關係：主要服務 `plan`、`(done)`、`check` 之間的實際推進，也可用於承接仍需收斂的 `(discuss)` 後續工作。
 - 使用時機：要落實本輪工作、補驗證、修正 drift、更新 spec 承接內容時。
-- 追加規則：若 `Sprint` 判斷目前 stage 為 `(Optimization)`，下一步必須重新讀取 `idea.md`、`plan.md`、`check.md`，確認沒有未落實規格、缺漏驗收點或未處理的 drift；只有在這三份文件一致且沒有影響前提時，才可維持 `(Optimization)`。 
-- 追加規則：只要任一輪更新了 `idea.md`，就必須移除目前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.xml` / `plan.md` / `check.md` 的一致性檢查開始重新判定 stage；不能把更新後的需求視為仍處於舊的 optimization 狀態。
+- 追加規則：若 `Sprint` 判斷目前 stage 為 `(Optimization)`，下一步必須重新讀取 `idea.md`、`plan.xml`、`check.xml`，確認沒有未落實規格、缺漏驗收點或未處理的 drift；只有在這三份文件一致且沒有影響前提時，才可維持 `(Optimization)`。 
+- 追加規則：只要任一輪更新了 `idea.md`，就必須移除目前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.xml` / `plan.xml` / `check.xml` 的一致性檢查開始重新判定 stage；不能把更新後的需求視為仍處於舊的 optimization 狀態。
 
 ### `FDD Review`
 - 用途：檢查 stage 判定、spec 文件一致性、驗收狀態與程式 / 文件是否漂移。
@@ -66,7 +66,7 @@ FDD 指令是操作入口，不等於 stage 本身。stage 仍以 `idea -> (disc
 ### `FDD Retrospective`
 - 用途：在主要功能與驗收完成後，將穩定規則、詞彙與共用知識沉澱到 `optimization.md`、glossary、guides、references 等文件。
 - 對應關係：直接對應 `(Optimization)`。
-- 使用時機：`check.md` 已確認主要實作完成，接下來工作以收尾、整理、升格共用規則與持續維護整理為主時。
+- 使用時機：`check.xml` 已確認主要實作完成，接下來工作以收尾、整理、升格共用規則與持續維護整理為主時。
 
 ### 總結
 - `FDD Focus`：先決定現在在做哪個 spec。
@@ -92,7 +92,7 @@ FDD 不只定義階段順序，也要定義每一個 stage 何時可以開始、
 - Exit：已拆出可執行 stage、子任務、驗收點、風險與 fallback，工程師可直接據此進入 `(done)`。
 
 ### `(done)`
-- Entry：`plan.md` 與 `check.md` 已能明確指出本輪要做哪一個 stage。
+- Entry：`plan.xml` 與 `check.xml` 已能明確指出本輪要做哪一個 stage。
 - Exit：本輪實作、驗證與承接已完成，且 `history.xml` 已更新目前進度、已完成項與下一步。
 
 ### `check`
@@ -100,7 +100,7 @@ FDD 不只定義階段順序，也要定義每一個 stage 何時可以開始、
 - Exit：已能清楚區分已完成、未完成、高風險與可延後項，且下一步優先順序已重新確認。
 
 ### `(Optimization)`
-- Entry：`check.md` 已確認主要實作與驗收完成，剩餘工作主要是規則沉澱、詞彙整理與文件同步。
+- Entry：`check.xml` 已確認主要實作與驗收完成，剩餘工作主要是規則沉澱、詞彙整理與文件同步。
 - Exit：穩定規則已回寫到 `optimization.md`，且需要升格到 glossary / guides / references / sidebar 的內容已由工程師明確判定並處理或列單，`history.xml` 也已更新為可承接狀態。
 
 ## Minimum Deliverable Per Round
@@ -131,12 +131,12 @@ FDD 預設多輪對話後一定會出現文件漂移，因此需要一套正式�
 
 ### 判斷優先序
 - 先看 `history.xml`：用來判斷目前卡在哪一個 stage、上一輪真正完成了什麼、下一步是什麼。
-- 再看 `plan.md` 與 `check.md`：確認正式拆分與驗收是否已跟上 `history.xml`。
+- 再看 `plan.xml` 與 `check.xml`：確認正式拆分與驗收是否已跟上 `history.xml`。
 - 最後才回看 `idea.md`：確認是否是需求本身變了，而不是後續文件尚未同步。
 
 ### 漂移處理原則
-- 若 `history.xml` 與 `plan.md` / `check.md` 不一致，先以最新 `history.xml` 判斷當前承接點。
-- 若穩定結論只存在 `history.xml`，必須回寫到 `plan.md` 或 `check.md`，不能長期只留在歷史摘要中。
+- 若 `history.xml` 與 `plan.xml` / `check.xml` 不一致，先以最新 `history.xml` 判斷當前承接點。
+- 若穩定結論只存在 `history.xml`，必須回寫到 `plan.xml` 或 `check.xml`，不能長期只留在歷史摘要中。
 - 若 `idea.md` 與後續文件不一致，要先判斷是需求變更、前提被推翻，還是文件落後；不要直接重做設計。
 - 若發現前置假設失效，必須明確指出要回退的是哪一段文件或哪一個 stage，不可籠統寫成「重新整理」。
 - 在重要漂移尚未處理前，不進入 `(Optimization)`。
@@ -151,7 +151,7 @@ FDD 不只要求文件有寫，還要求在判斷架構、術語、流程與 fea
 
 ### Feature 文件承接優先序
 - 若任務位於 `document/spec/<feature>/`，先讀 `history.xml`，用來判斷目前 stage、上一輪真正完成了什麼、下一步是什麼。
-- 再讀 `plan.md` 與 `check.md`，確認正式拆分、驗收與文件同步是否已跟上。
+- 再讀 `plan.xml` 與 `check.xml`，確認正式拆分、驗收與文件同步是否已跟上。
 - 只有在文件顯示前面尚未完成，或需求 / 前提已被推翻時，才回讀 `idea.md`；不要每次承接都重跑需求設計。
 
 ### 使用規則
@@ -172,7 +172,7 @@ FDD 不只管文件流，也要管驗證方式。若驗證規則不明確，不�
 - 不猜測、不硬編碼、不自行替換 `.env` 已提供的驗證帳密。
 
 ### 驗證紀錄要求
-- 驗證結果應回寫到 `history.xml` 或 `check.md`，不要只留在 terminal output。
+- 驗證結果應回寫到 `history.xml` 或 `check.xml`，不要只留在 terminal output。
 - 若使用替代驗證路徑，需說明為何未採用既有 smoke / task / Docker 基準。
 
 ## Artifact Ownership Matrix
@@ -183,19 +183,19 @@ FDD 要求不同類型的資訊放到正確文件，不可長期混寫。
 - 放：需求目標、範圍、限制、依賴、風險、未決事項、已確認的高層決策。
 - 不放：多輪進度、暫時 next step、驗收結果逐輪更新、收尾結論。
 
-### `plan.md`
+### `plan.xml`
 - 放：stage、子任務、PR 切分、驗收點、fallback、風險處理與實作順序。
 - 不放：純歷史討論摘要、尚未收斂的需求雜訊、正式收尾內容。
-- 補充：不要在 `plan.md` 維護 `Current Stage` 區塊；目前 stage 以 `history.xml` 最新一輪為準。
+- 補充：不要在 `plan.xml` 維護 `Current Stage` 區塊；目前 stage 以 `history.xml` 最新一輪為準。
 
-### `check.md`
+### `check.xml`
 - 放：完成項、未完成項、風險、回歸驗收、文件同步清單。
 - 不放：尚未驗證的設計幻想、與驗收無關的背景敘事。
-- 補充：不要在 `check.md` 維護 `Current Stage` 區塊；目前 stage 以 `history.xml` 最新一輪為準。
+- 補充：不要在 `check.xml` 維護 `Current Stage` 區塊；目前 stage 以 `history.xml` 最新一輪為準。
 
 ### `history.xml`
 - 放：多輪承接摘要、目前 stage、阻塞、回退點、最新下一步選項。
-- 不放：長期穩定而已確定的正式規格終稿；這些應回寫到 `idea.md`、`plan.md`、`check.md`。
+- 不放：長期穩定而已確定的正式規格終稿；這些應回寫到 `idea.md`、`plan.xml`、`check.xml`。
 
 ### `optimization.md`
 - 放：已正式進入 `(Optimization)` 後的穩定規則、詞彙沉澱、後續優化方向、持續維護整理。
@@ -214,7 +214,7 @@ FDD 需要明確定義 feature 何時算完成，否則很容易長期停在 `ch
 ### Feature-level Done
 - 主要實作已完成。
 - 主要驗收已完成，且高風險項已有明確處置或接受理由。
-- `idea.md`、`plan.md`、`check.md`、`history.xml` 已彼此對齊，沒有明顯漂移。
+- `idea.md`、`plan.xml`、`check.xml`、`history.xml` 已彼此對齊，沒有明顯漂移。
 
 ### 進入 `(Optimization)` 前最低條件
 - 不再有阻擋 release 或主流程承接的功能缺口。
@@ -225,7 +225,7 @@ FDD 需要明確定義 feature 何時算完成，否則很容易長期停在 `ch
 - 這不代表 spec 結束或封存，只代表此刻是可暫停狀態。
 
 ### Sprint 遇到「無下一步計畫」時
-- 必須重檢 `idea.md`、`plan.md`、`check.md`。
+- 必須重檢 `idea.md`、`plan.xml`、`check.xml`。
 - 若需求沒有漂移，且沒有未完成需求或 checklist，則停止本輪 Sprint。
 - 若仍有未完成需求或 checklist，必須在 `history.xml` 新增一輪並留下明確「下一步事項」後繼續 Sprint。
 
@@ -249,8 +249,8 @@ FDD 需要明確定義 feature 何時算完成，否則很容易長期停在 `ch
 
 換句話說：
 - `idea.md` 記錄需求與決策基礎
-- `plan.md` 記錄實作拆分
-- `check.md` 記錄驗收標準與結果
+- `plan.xml` 記錄實作拆分
+- `check.xml` 記錄驗收標準與結果
 - `optimization.md` 記錄收尾與後續優化
 - `history.xml` 記錄過程與當下進度
 
@@ -258,14 +258,14 @@ FDD 需要明確定義 feature 何時算完成，否則很容易長期停在 `ch
 
 未來新增功能時，應依下列流程實作，落實 Spec-Driven Development。
 
-1. 建立新資料夾：於 `document/spec/<feature>/` 下新增 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.xml`。
+1. 建立新資料夾：於 `document/spec/<feature>/` 下新增 `idea.md`、`plan.xml`、`check.xml`、`optimization.md`、`history.xml`。
 2. 撰寫 `idea.md`：整理需求目標、範圍、風險、依賴、未決事項與必要範例。進入 `plan` 前，不應保留關鍵未決問題。
 	- 補充：必要範例不應只作為附錄；應優先用 mainline scenario 與 boundary / counter-example 來收斂規格，避免 `idea.md` 與後續 `plan` 對需求有不同解讀。
 3. 初始化 `history.xml`：先記錄目前 feature 狀態、已有文件、主要未決事項與下一步。
 4. 進行 `(discuss)`：若需求複雜，可先用 AI 或人工 review 摘要現況、拆解風險與討論取捨，直到 `idea` 可落地。每輪有結論或已辨識出進度影響時，同步更新 `history.xml`。
-5. 撰寫 `plan.md`：列出階段、子任務、PR 切分、驗收點、fallback 與高風險區塊，並在 `history.xml` 記錄目前進入哪一個 stage。若規劃過程中有任何影響 stage 順序、範圍或承接方式的討論，也要摘要回寫。
+5. 撰寫 `plan.xml`：列出階段、子任務、PR 切分、驗收點、fallback 與高風險區塊，並在 `history.xml` 記錄目前進入哪一個 stage。若規劃過程中有任何影響 stage 順序、範圍或承接方式的討論，也要摘要回寫。
 6. 進入 `(done)`：依 `plan` 執行，並持續記錄關鍵變更與 smoke test 結果。每輪完成後，更新 `history.xml` 的進度、阻塞與下一步；若中途出現「先做哪一步」「哪段要回退」「哪個前置假設失效」這類進度討論，也必須同步摘要到 `history.xml`。
-7. 撰寫 `check.md`：用 checklist 驗證完成項、未完成項、風險與回歸檢查結果，並將重要驗收結論回寫到 `history.xml`。若驗收討論改變了當前優先順序或下一步，也要一併記錄。
+7. 撰寫 `check.xml`：用 checklist 驗證完成項、未完成項、風險與回歸檢查結果，並將重要驗收結論回寫到 `history.xml`。若驗收討論改變了當前優先順序或下一步，也要一併記錄。
 8. 執行 `(Optimization)`：整理規則、詞彙、優化方向與需要同步的文件。若本輪屬於階段性完工，可在 `history.xml` 標記「無下一步計畫」。在這一步開始前，`optimization.md` 應保持空白；完成前，先做一次 `history.xml` 壓縮整理。
 
 ## History 維護原則
@@ -330,14 +330,14 @@ FDD 需要明確定義 feature 何時算完成，否則很容易長期停在 `ch
 
 ### 什麼資訊不應該只留在 history
 - 穩定需求定義，應回寫到 `idea.md`
-- 穩定實作拆分，應回寫到 `plan.md`
-- 穩定驗收標準，應回寫到 `check.md`
+- 穩定實作拆分，應回寫到 `plan.xml`
+- 穩定驗收標準，應回寫到 `check.xml`
 - 穩定優化結論，應回寫到 `optimization.md`
 
 也就是說，`history.xml` 用來記錄「過程中的狀態」，而不是讓正式文件永遠停留在過時版本。
 
 實務上可把它理解成：
-- 正式規格寫進 `idea.md`、`plan.md`、`check.md`、`optimization.md`
+- 正式規格寫進 `idea.md`、`plan.xml`、`check.xml`、`optimization.md`
 - 所有討論摘要先寫進 `history.xml`
 - 一旦討論內容已穩定，再把正式結論回寫到對應 spec 文件
 
@@ -491,12 +491,12 @@ F3CMS 的 `check` 不只看功能有沒有動，還要檢查：
 
 判斷規則：
 - 若錯的邊界已開始被第二個 caller、第二條流程或下一步設計重複依賴，通常應判定為必須立即重構
-- 若只是局部命名不佳、單一函式尚未形成擴散依賴，則可先記錄於 `history.xml` 或 `check.md`，待後續收斂
+- 若只是局部命名不佳、單一函式尚未形成擴散依賴，則可先記錄於 `history.xml` 或 `check.xml`，待後續收斂
 - 若主要 runtime gap、驗收缺口或功能前提尚未補齊，除非 drift 已阻塞當前工作，否則先完成 feature 主線
 
 文件落點：
-- 本輪若判定「必須立即重構」，應把原因、範圍與驗證方式寫進 `history.xml`，必要時同步更新 `plan.md`
-- 本輪若判定「可延後重構」，也應把徵兆與延後理由記錄在 `history.xml` 或 `check.md`，不能只留在對話中
+- 本輪若判定「必須立即重構」，應把原因、範圍與驗證方式寫進 `history.xml`，必要時同步更新 `plan.xml`
+- 本輪若判定「可延後重構」，也應把徵兆與延後理由記錄在 `history.xml` 或 `check.xml`，不能只留在對話中
 
 可參考：
 - [guides/pr_review_checklist.md](guides/pr_review_checklist.md)
@@ -507,7 +507,7 @@ F3CMS 的 `check` 不只看功能有沒有動，還要檢查：
 在 F3CMS 中，優化不只代表重構程式，也代表沉澱規則。
 
 進入條件：
-- `check.md` 已確認主要開發與驗收完成。
+- `check.xml` 已確認主要開發與驗收完成。
 - 目前剩餘工作已收斂為文件、詞彙、規則沉澱與後續優化方向。
 
 未進入本階段前的要求：
@@ -565,11 +565,11 @@ F3CMS 是 convention-driven 架構，因此有些重構不是為了「漂亮」�
 
 落實 `document/spec/<feature>` 之 stage `<step-number>`。
 
-1. 載入 `document/spec/<feature>/plan.md` 與 `document/spec/<feature>/check.md`
-2. 根據 `plan.md` 執行對應工作
-3. 根據 `check.md` 檢查目前結果
+1. 載入 `document/spec/<feature>/plan.xml` 與 `document/spec/<feature>/check.xml`
+2. 根據 `plan.xml` 執行對應工作
+3. 根據 `check.xml` 檢查目前結果
 4. 若有落差，依檢查結果進一步修正
-5. 再次對照 `check.md` 驗證
+5. 再次對照 `check.xml` 驗證
 6. 更新 `history.xml` 的目前進度、已完成項與下一步
 7. 產生 git commit 所需說明
 
@@ -579,7 +579,7 @@ F3CMS 是 convention-driven 架構，因此有些重構不是為了「漂亮」�
 
 前提：
 - 只有在 feature 已正式進入 `(Optimization)` 時，才能執行這個情境。
-- 若目前仍在開發、驗收或承接下一步，應回到 `history.xml`、`plan.md`、`check.md` 處理，不應提前填寫 `optimization.md`。
+- 若目前仍在開發、驗收或承接下一步，應回到 `history.xml`、`plan.xml`、`check.xml` 處理，不應提前填寫 `optimization.md`。
 
 1. 將 feature 的穩定商業規則整理到適合的 spec 文件；若工程師判斷已有跨 feature 或長期重用價值，再升格到 guide 或其他共用文件
 2. 將 feature 的特殊詞彙整理進 [glossary.md](glossary.md)

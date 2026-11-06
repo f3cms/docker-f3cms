@@ -6,7 +6,7 @@
 - 將 `<feature>`、`<stage>`、`<module>`、`<path>` 這類 placeholder 換成實際值。
 - 優先先跑 `idea -> (discuss) -> plan`，不要跳過前段直接要求產碼。
 - 若需求已經很清楚，可直接選用對應階段的 prompt，而不是整套全部重跑。
-- 多輪對話時，優先先讀 `history.xml`，再視需要回讀 `idea.md`、`plan.md`、`check.md`、`optimization.md`。
+- 多輪對話時，優先先讀 `history.xml`，再視需要回讀 `idea.md`、`plan.xml`、`check.xml`、`optimization.md`。
 
 ## FDD 常駐規則對應模板
 
@@ -19,7 +19,7 @@
 1. 若任務涉及驗證、smoke、PHP script execution、workflow verification 或 post-change runtime checks，優先使用專案既有 Docker 環境，不優先用本機 PHP。
 2. 若任務涉及資料庫驗證、查詢或 schema 檢查，連線資訊以 `.env` 為預設真實來源，不要猜測或硬編碼帳密。
 3. 若任務涉及 F3CMS 架構、術語、流程或 feature 承接，先讀 `document/` 下對應文件，不要直接套用 generic framework assumptions。
-4. 若任務位於 `document/spec/<feature>/`，先讀 `history.xml`，再用 `plan.md` 與 `check.md` 判斷下一步；除非文件顯示前面未完成，否則不要回到 `idea.md` 重跑。
+4. 若任務位於 `document/spec/<feature>/`，先讀 `history.xml`，再用 `plan.xml` 與 `check.xml` 判斷下一步；除非文件顯示前面未完成，否則不要回到 `idea.md` 重跑。
 
 要求：
 - 在真正動手前，先說明你準備讀哪些文件、使用哪個驗證環境，以及為什麼。
@@ -36,7 +36,7 @@
 請執行順序：
 1. 先確認要使用的 Docker service / container path
 2. 再執行既有 smoke 或驗證指令
-3. 最後回報驗證結果與是否需要更新 `history.xml` 或 `check.md`
+3. 最後回報驗證結果與是否需要更新 `history.xml` 或 `check.xml`
 
 ### 資料庫驗證模板
 
@@ -58,7 +58,7 @@
 請先套用以下規則：
 1. 把 `document/` 視為主要真實來源，不要直接依 generic MVC / CMS 假設下結論。
 2. 若是架構或分層問題，優先讀 guide / glossary / reference。
-3. 若是 feature 承接問題，優先讀 `document/spec/<feature>/history.xml`，再讀 `plan.md`、`check.md`。
+3. 若是 feature 承接問題，優先讀 `document/spec/<feature>/history.xml`，再讀 `plan.xml`、`check.xml`。
 
 回答順序要求：
 1. 先說明你讀了哪些 `document/` 文件
@@ -71,7 +71,7 @@
 
 執行順序要求：
 1. 先讀 `document/spec/<feature>/history.xml`
-2. 再讀 `plan.md` 與 `check.md`
+2. 再讀 `plan.xml` 與 `check.xml`
 3. 只有在文件內容顯示前面未完成或需求已變更時，才回讀 `idea.md`
 
 要求：
@@ -84,22 +84,22 @@
 
 請依 Flow Driven Development 執行這一輪工作，並先套用以下常駐規則：
 
-- 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
-- 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
+- 先讀 `document/spec/.current-spec.xml` 作為當前目標 spec 的單一真實來源
+- 若 `document/spec/.current-spec.xml` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
 - 驗證優先使用專案既有 Docker 環境
 - 資料庫驗證帳密以 `.env` 為準
 - F3CMS 架構、術語與流程以 `document/` 為主
-- 先從 current spec 指向的 `history.xml` 開始，再用 `plan.md`、`check.md` 判斷下一步
+- 先從 current spec 指向的 `history.xml` 開始，再用 `plan.xml`、`check.xml` 判斷下一步
 
 回答與執行順序：
-1. 先讀 `document/spec/.current-spec.md`
+1. 先讀 `document/spec/.current-spec.xml`
 2. 若指標檔無效，立即中斷並要求先執行 `FDD Focus`
 3. 再說明你讀了哪些 current spec 文件與目前判定的 flow stage
 4. 再說明本輪要做的最小範圍
 5. 若涉及驗證，優先採用 Docker / 既有 smoke 路徑
 6. 若涉及資料庫驗證，說明以 `.env` 為基準
 7. 若發現 drift，先指出 drift handling，不直接重做設計
-8. 完成後指出是否需要更新 current spec 的 `history.xml`、`plan.md`、`check.md`
+8. 完成後指出是否需要更新 current spec 的 `history.xml`、`plan.xml`、`check.xml`
 
 ### FDD Review 模板
 
@@ -107,18 +107,18 @@
 
 先套用以下常駐規則：
 
-- 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
-- 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
+- 先讀 `document/spec/.current-spec.xml` 作為當前目標 spec 的單一真實來源
+- 若 `document/spec/.current-spec.xml` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
 - F3CMS 架構、術語與流程以 `document/` 為主
-- feature work 先讀 current spec 的 `history.xml`，再用 `plan.md`、`check.md` 判斷下一步
+- feature work 先讀 current spec 的 `history.xml`，再用 `plan.xml`、`check.xml` 判斷下一步
 - 若文件與程式碼不一致，先指出差異與影響，再判斷是否需要回退或同步
 
 Review 順序要求：
-1. 先讀 `document/spec/.current-spec.md`
+1. 先讀 `document/spec/.current-spec.xml`
 2. 若指標檔無效，立即中斷並要求先執行 `FDD Focus`
 3. 再列出你讀了哪些 current spec 文件
 4. 先判斷目前處於哪一個 flow stage
-5. 檢查 `history.xml`、`plan.md`、`check.md`、必要時 `idea.md` 是否彼此一致
+5. 檢查 `history.xml`、`plan.xml`、`check.xml`、必要時 `idea.md` 是否彼此一致
 6. 檢查文件與現況程式碼 / 驗證結果是否有漂移
 7. 先列出 findings，再給出最小修正建議
 
@@ -134,14 +134,14 @@ Review 順序要求：
 
 先套用以下常駐規則：
 
-- 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
-- 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
-- 只有在 `check.md` 已確認主要實作與驗收完成後，才進入 `(Optimization)`
+- 先讀 `document/spec/.current-spec.xml` 作為當前目標 spec 的單一真實來源
+- 若 `document/spec/.current-spec.xml` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
+- 只有在 `check.xml` 已確認主要實作與驗收完成後，才進入 `(Optimization)`
 - 穩定規則應從 feature 文件回寫到共用文件，而不是長期只留在 `history.xml`
 - 若任務涉及驗證，仍優先使用專案既有 Docker 路徑
 
 執行順序要求：
-1. 先讀 `document/spec/.current-spec.md`
+1. 先讀 `document/spec/.current-spec.xml`
 2. 若指標檔無效，立即中斷並要求先執行 `FDD Focus`
 3. 先確認 current spec 是否已具備進入 `(Optimization)` 的條件
 4. 盤點哪些穩定規則、詞彙、流程或參考資訊應回寫到 glossary / guides / references
@@ -160,18 +160,18 @@ Review 順序要求：
 
 先套用以下常駐規則：
 
-- 先讀 `document/spec/.current-spec.md` 作為當前目標 spec 的單一真實來源
-- 若 `document/spec/.current-spec.md` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
-- 先讀 current spec 的 `history.xml`，再用 `plan.md`、`check.md` 理解本輪完成範圍與 stage
+- 先讀 `document/spec/.current-spec.xml` 作為當前目標 spec 的單一真實來源
+- 若 `document/spec/.current-spec.xml` 不存在、不可讀或未指向有效 spec，立即中斷，不可猜測目標 spec
+- 先讀 current spec 的 `history.xml`，再用 `plan.xml`、`check.xml` 理解本輪完成範圍與 stage
 - commit message 必須同時根據 spec 文件與目前 git working tree 產生，不可只看文件猜測
 - commit 預設只承接 current spec 範圍內的變更；若 working tree 有 unrelated dirty files，不可默默一起提交
 - 不可在未經使用者確認前直接執行 `git commit`
 - 使用者確認後，應直接用 non-interactive git 指令完成 commit，不用再重問一次
 
 執行順序要求：
-1. 先讀 `document/spec/.current-spec.md`
+1. 先讀 `document/spec/.current-spec.xml`
 2. 確認目前 resolve 到哪個 spec
-3. 再讀該 spec 的 `history.xml`、`plan.md`、`check.md`
+3. 再讀該 spec 的 `history.xml`、`plan.xml`、`check.xml`
 4. 檢查 git working tree，區分 current spec 相關變更與 unrelated dirty files
 5. 若有 unrelated dirty files，先詢問要排除還是納入
 6. 依 current spec 與實際變更產生 commit message
@@ -216,7 +216,7 @@ Review 順序要求：
 
 - 以 `document/flow.llm.md` 為低 token 執行規則
 - 以 `document/flow.md` 為完整規則參考
-- 先建立或更新 `document/spec/.current-spec.md`
+- 先建立或更新 `document/spec/.current-spec.xml`
 - 使用者提供的是 spec 資料夾名或 `document/spec/<Spec>` 路徑
 - 先做精確比對；若精確比對失敗，且只差大小寫，允許用 case-insensitive 方式解析到唯一 spec
 - 若目標 spec 不存在，或 case-insensitive 結果不唯一，立即中斷，不可猜測或自動替換成其他 feature
@@ -226,13 +226,13 @@ Review 順序要求：
 2. 先做精確比對；若精確比對失敗，再做 case-insensitive 比對
 3. 確認對應的 `document/spec/<Spec>/` 是否唯一存在
 4. 若不存在，或 case-insensitive 比對出現多個候選，立即中斷並回報有效錯誤
-5. 若存在，建立或更新 `document/spec/.current-spec.md`
-6. 再讀該 spec 的 `history.xml`、`plan.md`、`check.md`
+5. 若存在，建立或更新 `document/spec/.current-spec.xml`
+6. 再讀該 spec 的 `history.xml`、`plan.xml`、`check.xml`
 7. 先回答目前 stage、上一輪完成項、當前最小下一步
 8. 將後續任務都視為在該 spec 目標下執行
 
 輸出要求：
-- 先明確說明 `document/spec/.current-spec.md` 已切換到哪個 spec
+- 先明確說明 `document/spec/.current-spec.xml` 已切換到哪個 spec
 - 若是靠大小寫 fallback 才成功切換，也要一併說明
 - 若 spec 無效或大小寫比對結果不唯一，先中斷並指出找不到或無法唯一判定哪個資料夾
 - 若 spec 有效，先摘要目前承接點
@@ -247,7 +247,7 @@ Review 順序要求：
 - 這一輪只做 migration 第 1 到第 3 步，不建立第一個真實 spec folder，也不做 prompt contract 驗證
 - 先讀 `document/guides/fdd_porting_guide.md` 與 `document/guides/fdd_migration_checklist.md`
 - 先把 `.github/copilot-instructions.md` 與 `.github/prompts/fdd-*.prompt.md` 視為主要改寫標的
-- `document/flow.md`、`document/flow.llm.md`、`.current-spec.md` pointer 機制、以及 `idea.md / history.xml / plan.md / check.md / optimization.md` artifact ownership 預設先視為可保留，除非新專案有明確衝突
+- `document/flow.md`、`document/flow.llm.md`、`.current-spec.xml` pointer 機制、以及 `idea.md / history.xml / plan.xml / check.xml / optimization.md` artifact ownership 預設先視為可保留，除非新專案有明確衝突
 - 不要把這一輪擴張成 feature implementation、spec 建立、或實際驗證執行
 
 執行順序要求：
@@ -322,7 +322,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 初始化 feature spec
 
-請依 [../flow.md](../flow.md) 的 SOP，為 `document/spec/<feature>/` 初始化 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.xml` 的基本結構。
+請依 [../flow.md](../flow.md) 的 SOP，為 `document/spec/<feature>/` 初始化 `idea.md`、`plan.xml`、`check.xml`、`optimization.md`、`history.xml` 的基本結構。
 
 要求：
 - 不要直接進入實作細節
@@ -348,7 +348,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 執行順序要求：
 1. 先讀 `document/spec/<feature>/history.xml`，理解目前進度、最近結論、阻塞、下一步與已被推翻的假設。
-2. 再讀 `document/spec/<feature>/idea.md`；若新需求可能影響拆分或驗收，再補讀 `plan.md`、`check.md`，必要時才讀 `optimization.md`。
+2. 再讀 `document/spec/<feature>/idea.md`；若新需求可能影響拆分或驗收，再補讀 `plan.xml`、`check.xml`，必要時才讀 `optimization.md`。
 3. 先整理「這次新需求到底改變了什麼」：
 	- 新增了哪些需求目標或限制
 	- 推翻了哪些既有假設
@@ -358,7 +358,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 文件更新要求：
 - 先以最小必要修改更新 `idea.md`，保留仍然有效的既有內容
-- 若新需求已影響 `plan.md`、`check.md` 或目前 flow 階段，必須同步指出哪些段落需要承接修正
+- 若新需求已影響 `plan.xml`、`check.xml` 或目前 flow 階段，必須同步指出哪些段落需要承接修正
 - 若有新結論、假設修正、回退點、阻塞或下一步改變，必須同步新增一輪到 `history.xml`
 - 不要直接產生程式碼
 - 不要跳過理解階段直接進入實作方案
@@ -430,7 +430,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 由 idea 產生 plan
 
-請依 [../flow.md](../flow.md) 的 `plan` 定義，根據 `document/spec/<feature>/idea.md` 建立 `document/spec/<feature>/plan.md`。
+請依 [../flow.md](../flow.md) 的 `plan` 定義，根據 `document/spec/<feature>/idea.md` 建立 `document/spec/<feature>/plan.xml`。
 
 要求：
 - 拆出 stage、子任務、依賴、風險、fallback、驗收點
@@ -440,7 +440,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 檢查 plan 是否可執行
 
-請檢查 `document/spec/<feature>/plan.md` 是否已足夠讓工程師直接進入 `(done)`。
+請檢查 `document/spec/<feature>/plan.xml` 是否已足夠讓工程師直接進入 `(done)`。
 
 請明確指出：
 - 哪些 stage 定義清楚
@@ -449,7 +449,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 將 plan 拆成 stage prompt
 
-請將 `document/spec/<feature>/plan.md` 拆成可逐步執行的 stage prompt。
+請將 `document/spec/<feature>/plan.xml` 拆成可逐步執行的 stage prompt。
 
 每個 stage 請提供：
 - 目標
@@ -464,17 +464,17 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 落實 `document/spec/<feature>` 之 stage `<stage-number>`。
 
 要求：
-1. 載入 `document/spec/<feature>/plan.md` 與 `document/spec/<feature>/check.md`
+1. 載入 `document/spec/<feature>/plan.xml` 與 `document/spec/<feature>/check.xml`
 2. 先說明本 stage 的目標與預計修改範圍
 3. 實作對應變更
-4. 根據 `check.md` 驗證本 stage 已完成的項目
+4. 根據 `check.xml` 驗證本 stage 已完成的項目
 5. 說明尚未完成與風險
 6. 更新 `document/spec/<feature>/history.xml`
 7. 產生 git commit 所需說明
 
 ### 只做本階段，不擴張範圍
 
-請只執行 `document/spec/<feature>/plan.md` 中的 stage `<stage-number>`。
+請只執行 `document/spec/<feature>/plan.xml` 中的 stage `<stage-number>`。
 
 要求：
 - 不要順手擴做其他 stage
@@ -483,18 +483,18 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 依 check 反修 stage
 
-請根據 `document/spec/<feature>/check.md` 與目前實作結果，修正 stage `<stage-number>` 的遺漏項與問題。
+請根據 `document/spec/<feature>/check.xml` 與目前實作結果，修正 stage `<stage-number>` 的遺漏項與問題。
 
 要求：
 - 先列出缺口
 - 再做最小必要修正
-- 最後重新對照 `check.md`
+- 最後重新對照 `check.xml`
 
 ## Check 階段
 
 ### 由 plan 產生 check
 
-請依 [../flow.md](../flow.md) 的 `check` 定義，根據 `document/spec/<feature>/idea.md` 與 `document/spec/<feature>/plan.md` 建立 `document/spec/<feature>/check.md`。
+請依 [../flow.md](../flow.md) 的 `check` 定義，根據 `document/spec/<feature>/idea.md` 與 `document/spec/<feature>/plan.xml` 建立 `document/spec/<feature>/check.xml`。
 
 要求：
 - 用 checklist 表達
@@ -504,7 +504,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 執行 check review
 
-請依 `document/spec/<feature>/check.md` 對目前實作做驗收檢查。
+請依 `document/spec/<feature>/check.xml` 對目前實作做驗收檢查。
 
 請輸出：
 - 已完成項
@@ -514,7 +514,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 以 code review 角度補 check
 
-請用 code review 的角度檢查 `document/spec/<feature>/check.md` 是否缺少重要驗收點。
+請用 code review 的角度檢查 `document/spec/<feature>/check.xml` 是否缺少重要驗收點。
 
 優先檢查：
 - 邊界責任
@@ -574,7 +574,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 請檢查 `document/spec/<feature>` 是否可標記為「無下一步計畫」。
 
 要求：
-1. 檢查 `idea.md`、`plan.md`、`check.md`、`optimization.md`、`history.xml` 是否已完整
+1. 檢查 `idea.md`、`plan.xml`、`check.xml`、`optimization.md`、`history.xml` 是否已完整
 2. 若需求沒有漂移且沒有未完成需求 / checklist，於 `history.xml` 最新一輪標記「無下一步計畫」
 3. 若仍有未完成需求或 checklist，新增一輪並留下明確「下一步事項」
 4. 產生 git commit 所需說明
@@ -602,7 +602,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 規劃 F3CMS 層級變更
 
-請根據 `document/spec/<feature>/plan.md`，列出這次功能會修改哪些 F3CMS 層級。
+請根據 `document/spec/<feature>/plan.xml`，列出這次功能會修改哪些 F3CMS 層級。
 
 請至少區分：
 - Feed
@@ -614,7 +614,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 產出 F3CMS review 重點
 
-請根據 `document/spec/<feature>/idea.md` 與 `document/spec/<feature>/plan.md`，產出本功能的 review 重點。
+請根據 `document/spec/<feature>/idea.md` 與 `document/spec/<feature>/plan.xml`，產出本功能的 review 重點。
 
 至少包含：
 - 模組邊界
@@ -631,11 +631,11 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 快速出 plan
 
-請根據 `document/spec/<feature>/idea.md` 直接產出可執行的 `plan.md` 草稿。
+請根據 `document/spec/<feature>/idea.md` 直接產出可執行的 `plan.xml` 草稿。
 
 ### 快速做 check
 
-請根據 `idea.md` 與 `plan.md` 產出 `check.md` 的驗收清單初稿。
+請根據 `idea.md` 與 `plan.xml` 產出 `check.xml` 的驗收清單初稿。
 
 ### 快速收尾
 
@@ -675,7 +675,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 檢查 history 是否落後
 
-請檢查 `document/spec/<feature>/history.xml` 是否已落後於 `idea.md`、`plan.md`、`check.md` 的最新狀態。
+請檢查 `document/spec/<feature>/history.xml` 是否已落後於 `idea.md`、`plan.xml`、`check.xml` 的最新狀態。
 
 請指出：
 - 哪些結論沒有同步進 history
@@ -715,8 +715,8 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 請先讀：
 - `document/spec/<feature>/history.xml`
 - `document/spec/<feature>/idea.md`
-- `document/spec/<feature>/plan.md`
-- `document/spec/<feature>/check.md`
+- `document/spec/<feature>/plan.xml`
+- `document/spec/<feature>/check.xml`
 - 若需要，再讀 `document/spec/<feature>/optimization.md`
 
 要求：
@@ -736,7 +736,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 根據上一輪結論更新 spec
 
-根據上一輪對話的結論，更新 `document/spec/<feature>/idea.md` 或 `plan.md`。
+根據上一輪對話的結論，更新 `document/spec/<feature>/idea.md` 或 `plan.xml`。
 
 要求：
 - 只更新被新結論影響的段落
@@ -755,7 +755,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 多輪 plan 細化
 
-`document/spec/<feature>/plan.md` 已有初稿。
+`document/spec/<feature>/plan.xml` 已有初稿。
 
 請只做以下工作：
 - 將 stage `<stage-number>` 細化成更可執行的子任務
@@ -764,22 +764,22 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 ### 多輪 stage 接力實作
 
-前一輪已完成 `document/spec/<feature>/plan.md` 中的 stage `<stage-number>` 一部分。
+前一輪已完成 `document/spec/<feature>/plan.xml` 中的 stage `<stage-number>` 一部分。
 
 請：
 - 先確認已完成與未完成項
 - 只補完這個 stage 剩下的部分
-- 完成後更新對應的 `check.md` 驗證狀態
+- 完成後更新對應的 `check.xml` 驗證狀態
 
 ### 多輪 check 回補
 
-`document/spec/<feature>/check.md` 已指出幾個缺口。
+`document/spec/<feature>/check.xml` 已指出幾個缺口。
 
 請：
 - 先列出需要回補的項目
 - 按風險高低排序
 - 只處理本輪最重要的 1 至 2 項
-- 處理完後重新對照 `check.md`
+- 處理完後重新對照 `check.xml`
 
 ### 多輪文件同步
 
@@ -789,7 +789,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 - `history.xml`
 - `glossary.md`
 - guides / references 是否已有相關內容需要補註
-- `plan.md` 與 `check.md` 是否反映最新決策
+- `plan.xml` 與 `check.xml` 是否反映最新決策
 
 ### 多輪上下文壓縮
 
@@ -809,7 +809,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 請不要重做設計，只做 review：
 - 檢查這幾輪累積後是否出現邊界漂移
-- 檢查 `idea.md`、`plan.md`、`check.md` 是否彼此仍一致
+- 檢查 `idea.md`、`plan.xml`、`check.xml` 是否彼此仍一致
 - 指出有哪些地方已經偏離原本 flow
 
 ### 多輪收尾模式
@@ -884,11 +884,11 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 為什麼有問題：
 - 產出的 plan 常會過度抽象
 - 工程師無法直接執行
-- `check.md` 也會跟著無法落地
+- `check.xml` 也會跟著無法落地
 
 建議改寫：
 
-請根據 `idea.md` 建立 `plan.md`，拆出 stage、子任務、驗收點、依賴、風險與 fallback。若是 F3CMS 功能，至少區分 schema、Feed、Reaction、Outfit、Kit、文件同步項。
+請根據 `idea.md` 建立 `plan.xml`，拆出 stage、子任務、驗收點、依賴、風險與 fallback。若是 F3CMS 功能，至少區分 schema、Feed、Reaction、Outfit、Kit、文件同步項。
 
 ### 反例 5：done 階段順手擴做
 
@@ -898,12 +898,12 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 為什麼有問題：
 - 很容易跨出目前 stage 範圍
-- 使 `plan.md` 與 `check.md` 失真
+- 使 `plan.xml` 與 `check.xml` 失真
 - 增加 review 與回歸風險
 
 建議改寫：
 
-請只執行 `document/spec/<feature>/plan.md` 中的 stage `<stage-number>`，不要擴張到其他 stage；若需要改動原 plan，先說明原因。
+請只執行 `document/spec/<feature>/plan.xml` 中的 stage `<stage-number>`，不要擴張到其他 stage；若需要改動原 plan，先說明原因。
 
 ### 反例 6：check 只看功能有沒有動
 
@@ -918,7 +918,7 @@ mkdir -p document/spec/<feature> && cd $_ && touch {idea,plan,check,optimization
 
 建議改寫：
 
-請依 `document/spec/<feature>/check.md` 做驗收檢查，除了功能完成外，也檢查模組邊界、資料層落點、權限、query/performance 與文件同步。
+請依 `document/spec/<feature>/check.xml` 做驗收檢查，除了功能完成外，也檢查模組邊界、資料層落點、權限、query/performance 與文件同步。
 
 ### 反例 7：把 Optimization 當成可有可無
 

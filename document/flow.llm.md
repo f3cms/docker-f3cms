@@ -12,11 +12,11 @@
 
 1. 先讀 `document/spec/<feature>/history.xml`
 2. 用最新一輪判斷目前 stage
-3. 再讀 `plan.md` 與 `check.md` 確認下一步
+3. 再讀 `plan.xml` 與 `check.xml` 確認下一步
 4. 只有在前段未完成或前提失效時才回讀 `idea.md`
 
 ### Stage 記錄位置規則
-- 不在 `plan.md`、`check.md` 維護 `Current Stage` 區塊。
+- 不在 `plan.xml`、`check.xml` 維護 `Current Stage` 區塊。
 - 目前 stage 一律以 `history.xml` 最新一輪作為唯一承接來源。
 - 每一輪 `history.xml` 至少記錄：當前重點事項、AI 執行事項、下一步事項。
 - `history.xml` 結構固定為 `<history><round index="...">...</round></history>`。
@@ -34,7 +34,7 @@
 
 1. 先讀 `document/` 內相關共用文件
 2. 若是 feature work，先讀 `history.xml`
-3. 再讀 `plan.md` 與 `check.md`
+3. 再讀 `plan.xml` 與 `check.xml`
 4. 最後才回讀 `idea.md`
 
 ### 補充
@@ -60,15 +60,15 @@
 
 ## 4. `(Optimization)` 進入條件與永續 spec 規則
 
-1. `check.md` 已確認主要實作完成
-2. `check.md` 已確認主要驗收完成
+1. `check.xml` 已確認主要實作完成
+2. `check.xml` 已確認主要驗收完成
 3. 沒有阻擋 release 或主流程承接的關鍵缺口
 4. 下一步已收斂為文件同步、規則沉澱、詞彙整理
-5. 若目前 stage 已在 `(Optimization)`，`FDD Sprint` 必須重新檢查 `idea.md`、`plan.md`、`check.md`，確認沒有未落實規格、缺漏驗收點或被忘記的承接前提，再決定是否仍可視為 `Optimization`。
+5. 若目前 stage 已在 `(Optimization)`，`FDD Sprint` 必須重新檢查 `idea.md`、`plan.xml`、`check.xml`，確認沒有未落實規格、缺漏驗收點或被忘記的承接前提，再決定是否仍可視為 `Optimization`。
 
 ### 永續 spec 與「無下一步計畫」
 - spec 是永續 artifact，不採用「封存即結束」前提；只有移除 spec 才代表失去該 spec。
-- 若 `history.xml` 最新一輪明確標示「無下一步計畫」，`FDD Sprint` 必須先重檢 `idea.md`、`plan.md`、`check.md`：
+- 若 `history.xml` 最新一輪明確標示「無下一步計畫」，`FDD Sprint` 必須先重檢 `idea.md`、`plan.xml`、`check.xml`：
   - 若需求沒有漂移、也沒有未完成需求或 checklist，停止 Sprint（不產生新實作輪次）。
   - 若仍有未完成需求或 checklist，新增一輪 `history.xml`，補上明確「下一步事項」後再繼續 Sprint。
 
@@ -78,7 +78,7 @@
 
 ### `idea.md` 更新時的重啟規則
 - 只要任一輪更新了 `idea.md`，就不得繼續沿用原本的 `(Optimization)` 狀態。
-- 更新 `idea.md` 後，立即移除當前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.xml` / `plan.md` / `check.md` 的一致性檢查開始重新判定 stage。
+- 更新 `idea.md` 後，立即移除當前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.xml` / `plan.xml` / `check.xml` 的一致性檢查開始重新判定 stage。
 - 此規則用於避免在需求被修正後，仍以舊的完成假設掩蓋新的未完項。
 
 ## 5. 每輪最小輸出要求
@@ -99,18 +99,18 @@
 5. 最後才決定是否需要改程式或改設計
 
 ### Drift 類型
-- 文件漂移：`history.xml`、`plan.md`、`check.md`、`idea.md` 彼此不一致
+- 文件漂移：`history.xml`、`plan.xml`、`check.xml`、`idea.md` 彼此不一致
 - Stage 漂移：文件描述的當前 stage 與實際工作狀態不一致
-- 驗收漂移：`check.md` 與實際驗證結果不一致
+- 驗收漂移：`check.xml` 與實際驗證結果不一致
 - 程式 / 文件漂移：程式現況與 spec 文件不一致
 
 ### 承接基準
 - `history.xml` 優先用來判斷目前 stage 與下一步
-- `plan.md` 與 `check.md` 用來確認正式拆分與驗收是否跟上
+- `plan.xml` 與 `check.xml` 用來確認正式拆分與驗收是否跟上
 - `idea.md` 用來判斷是否是需求真的改了
 
 ### 處置規則
-- 若穩定結論只存在 `history.xml`，回寫到 `plan.md` 或 `check.md`
+- 若穩定結論只存在 `history.xml`，回寫到 `plan.xml` 或 `check.xml`
 - 若前提失效，明確指出要回退哪一段文件或哪一個 stage
 - 未處理重要 drift 前，不進入 `(Optimization)`
 
@@ -135,7 +135,7 @@
 - 評估徵兆可包含：框架邊界失效、僅被呼叫一次的函式（不含 smoke test）、過度窄化的 Feed 函式
 - 評估結果只分兩類：必須立即重構，或可延後重構
 - 若 drift 已影響 implementation、review、驗收或下一步承接，判定為必須立即重構
-- 若只是局部徵兆，尚未形成擴散依賴，可先記錄到 `history.xml` / `check.md`，不必立刻展開重構
+- 若只是局部徵兆，尚未形成擴散依賴，可先記錄到 `history.xml` / `check.xml`，不必立刻展開重構
 - 只有在已出現明確 convention drift 時，才把框架慣例重構當成正式工作
 - convention drift 需已影響 implementation、review、驗收或長期維護，不只是風格偏好
 - 重構必須能收斂為局部 resync，不可藉機重開 feature 設計或擴張 scope
@@ -146,7 +146,7 @@
 1. 先讀相關 `document/` 文件
 2. 先讀 `history.xml`
 3. 判斷目前 stage
-4. 讀 `plan.md` 與 `check.md`
+4. 讀 `plan.xml` 與 `check.xml`
 5. 定義本輪最小下一步
 6. 若需驗證，優先走 Docker / 既有 smoke
 7. 若發現 drift，先處理 drift
