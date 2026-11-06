@@ -33,6 +33,7 @@
 - [data_modeling.md](data_modeling.md)
 - [data_architecture_checklist.md](data_architecture_checklist.md)
 - [fdd_porting_guide.md](fdd_porting_guide.md)
+- [fdd_migration_checklist.md](fdd_migration_checklist.md)
 - [smoke_s_layer_guide.md](smoke_s_layer_guide.md)
 - [smoke_result_tier_rerun_guide.md](smoke_result_tier_rerun_guide.md)
 - [testmode_development_guide.md](testmode_development_guide.md)
@@ -164,6 +165,16 @@ This section describes what each document is for and when it should be opened.
 - Primary source for moving the FDD workflow into another repository.
 - Use when the team wants to preserve LLM behavior, prompt entry points, and spec continuation rules across projects.
 - Read before copying prompts or workspace instructions into a new codebase.
+
+#### [fdd_migration_checklist.md](fdd_migration_checklist.md)
+- File-by-file checklist for the first rewrite pass after `./bin/port_fdd.sh`.
+- Use when the copied FDD bundle needs project-bound rules rewritten, but the team is not yet creating the first real spec folder or running prompt validation.
+- Read after `fdd_porting_guide.md` when the team wants an execution checklist instead of a full migration narrative.
+
+#### [fdd_migration_prompt.md](fdd_migration_prompt.md)
+- Single-file prompt for asking an LLM to execute migration steps 1 to 3 after `./bin/port_fdd.sh`.
+- Use when the team wants a direct execution prompt instead of assembling instructions from multiple guide files.
+- Read after `fdd_migration_checklist.md` when the migration operator prefers a ready-to-paste LLM task.
 
 #### [testmode_development_guide.md](testmode_development_guide.md)
 - Primary source for TestMode-related smoke development after the first migration has stabilized.

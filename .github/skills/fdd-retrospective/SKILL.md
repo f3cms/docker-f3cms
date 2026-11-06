@@ -1,10 +1,9 @@
 ---
-name: "FDD Retrospective"
+name: fdd-retrospective
 description: "Use when finishing a Flow Driven Development feature by syncing stable rules into glossary, guides, references, and optimization artifacts without reopening implementation scope."
+disable-model-invocation: true
 argument-hint: "Describe the feature path and the retrospective or documentation sync work"
-agent: "agent"
 ---
-
 Execute the user's request as Flow Driven Development `(Optimization)` work.
 
 Before doing any work, apply these rules:

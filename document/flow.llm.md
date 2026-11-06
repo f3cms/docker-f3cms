@@ -57,10 +57,16 @@
 2. `check.md` 已確認主要驗收完成
 3. 沒有阻擋 release 或主流程承接的關鍵缺口
 4. 下一步已收斂為文件同步、規則沉澱、詞彙整理、封存前處理
+5. 若目前 stage 已在 `(Optimization)`，`FDD Sprint` 必須重新檢查 `idea.md`、`plan.md`、`check.md`，確認沒有未落實規格、缺漏驗收點或被忘記的承接前提，再決定是否仍可視為 `Optimization`。
 
 ### 未達條件時
 - 不進入 `(Optimization)`
 - 先回到 `check` 或前一個仍未完成的 stage
+
+### `idea.md` 更新時的重啟規則
+- 只要任一輪更新了 `idea.md`，就不得繼續沿用原本的 `(Optimization)` 狀態。
+- 更新 `idea.md` 後，立即移除當前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.md` / `plan.md` / `check.md` 的一致性檢查開始重新判定 stage。
+- 此規則用於避免在需求被修正後，仍以舊的封存狀態掩蓋新的未完項。
 
 ## 5. 每輪最小輸出要求
 

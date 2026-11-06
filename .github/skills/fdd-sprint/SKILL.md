@@ -1,10 +1,9 @@
 ---
-name: "FDD Sprint"
+name: fdd-sprint
 description: "Use when executing a task under Flow Driven Development with Docker-first validation, .env-based DB verification, document-first reading, and history-first feature continuation."
+disable-model-invocation: true
 argument-hint: "Describe the feature path and the concrete task to execute"
-agent: "agent"
 ---
-
 Execute the user's request under Flow Driven Development.
 
 Before doing any work, apply these rules:
@@ -25,10 +24,12 @@ Required execution order:
 2. If the pointer file is missing or invalid, stop immediately instead of guessing a spec.
 3. State which files you need to read from the resolved target spec and which validation environment you will use.
 4. Identify the current flow stage from the resolved `history.md` before proposing or making changes.
-5. If you detect drift between the resolved `history.md`, `plan.md`, `check.md`, and current code, point it out before changing direction.
-6. Keep the work to the smallest valid next step unless the user explicitly asks for a broader scope.
-7. When validation is needed, prefer existing Docker compose services, container paths, smoke scripts, and existing verification routes.
-8. After finishing, state whether the resolved target spec's `history.md`, `plan.md`, or `check.md` should be updated.
+5. If the current stage is `(Optimization)`, immediately recheck `idea.md`, `plan.md`, and `check.md` to confirm there is no missing requirement, validation gap, or unclosed drift before treating the feature as complete.
+6. If you detect drift between the resolved `history.md`, `plan.md`, `check.md`, and current code, point it out before changing direction.
+7. If you update `idea.md` at any point, remove any current `(Optimization)` wording immediately and restart the flow from the stage-consistency check, because the requirement set has changed and the prior optimization state no longer holds.
+8. Keep the work to the smallest valid next step unless the user explicitly asks for a broader scope.
+9. When validation is needed, prefer existing Docker compose services, container paths, smoke scripts, and existing verification routes.
+10. After finishing, state whether the resolved target spec's `history.md`, `plan.md`, or `check.md` should be updated.
 
 Response expectations:
 

@@ -1,10 +1,9 @@
 ---
-name: "FDD Focus"
+name: fdd-focus
 description: "Use when switching the current Flow Driven Development target spec to any document/spec/<Spec> folder by name or path, including case-insensitive matching when the only difference is letter casing, then continuing work from that spec's history, plan, and check files."
+disable-model-invocation: true
 argument-hint: "Provide the spec folder name or path, then the task to continue"
-agent: "agent"
 ---
-
 Switch the current target spec to the user-specified spec under [document/spec](../../document/spec), then continue the user's request under that feature context.
 
 Before doing any work, apply these rules:

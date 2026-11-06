@@ -1,10 +1,9 @@
 ---
-name: "FDD Commit"
+name: fdd-commit
 description: "Use when preparing a commit for the current Flow Driven Development spec by reading the active current spec, deriving a commit message from the current spec and changed files, asking for explicit user confirmation, then performing a non-interactive git commit."
+disable-model-invocation: true
 argument-hint: "Describe any commit emphasis, exclusions, or commit-scope notes"
-agent: "agent"
 ---
-
 Prepare and execute a git commit for the current Flow Driven Development spec.
 
 Before doing any work, apply these rules:

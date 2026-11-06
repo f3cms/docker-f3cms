@@ -74,6 +74,12 @@ document/reference 的角色，是讓工程師在已經知道設計方向之後�
 
 ## Reference 文件地圖
 
+### [gene_panel_component_list.md](gene_panel_component_list.md)
+- 用途：快速查 Gene Panel 的搜尋、清單、欄位與按鈕元件結構、重用模式與應用範例。
+- Gene Panel 是可與 F3CMS 整合的獨立前端套件，不屬於 F3CMS 本體。
+- 適合在要新增後台列表頁、編輯 modal 或會員表單時使用。
+- 最適合的讀者：前端/後端工程師、SD、需要快速重用模板結構的開發者。
+
 ### [feed_reference.md](feed_reference.md)
 - 用途：快速查 Feed 常用函式、常數、CRUD、分頁、語系、meta、tags、欄位處理與常見踩雷。
 - 適合在已經確認資料邏輯應放在 Feed 後使用。
@@ -107,6 +113,7 @@ document/reference 的角色，是讓工程師在已經知道設計方向之後�
 ## 常見查詢入口
 
 如果你現在的問題是：
+- 要做新列表頁或新增/修改 form，先看 [gene_panel_component_list.md](gene_panel_component_list.md)
 - Feed 有哪些常用 CRUD 與分頁方法，先看 [feed_reference.md](feed_reference.md)
 - Reaction 的標準列表、儲存、刪除流程怎麼走，先看 [reaction_reference.md](reaction_reference.md)
 - `/api/@module/@method` 會打到哪個 Reaction class / method，先看 [api_route_reference.md](api_route_reference.md)

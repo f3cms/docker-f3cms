@@ -47,6 +47,8 @@ FILES_TO_COPY='document/flow.md
 document/flow.llm.md
 document/spec/prompts.md
 document/guides/fdd_porting_guide.md
+document/guides/fdd_migration_checklist.md
+document/guides/fdd_migration_prompt.md
 document/guides/idea_md_writing_guide.md
 document/guides/idea_md_role_examples.md
 .github/copilot-instructions.md

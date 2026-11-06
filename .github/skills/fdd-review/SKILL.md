@@ -1,10 +1,9 @@
 ---
-name: "FDD Review"
+name: fdd-review
 description: "Use when reviewing a Flow Driven Development feature for drift, stage alignment, document consistency, and spec-to-code agreement without restarting the design."
+disable-model-invocation: true
 argument-hint: "Describe the feature path or document set to review"
-agent: "agent"
 ---
-
 Review the user's target under Flow Driven Development.
 
 Before doing any work, apply these rules:

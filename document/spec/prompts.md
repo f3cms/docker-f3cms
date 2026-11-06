@@ -238,6 +238,80 @@ Review 順序要求：
 - 若 spec 有效，先摘要目前承接點
 - 再處理使用者後續要求
 
+### FDD Migration Rewrite 模板
+
+請將剛由 `./bin/port_fdd.sh` 複製進來的 FDD bundle，改寫成符合目前新專案的版本。
+
+先套用以下規則：
+
+- 這一輪只做 migration 第 1 到第 3 步，不建立第一個真實 spec folder，也不做 prompt contract 驗證
+- 先讀 `document/guides/fdd_porting_guide.md` 與 `document/guides/fdd_migration_checklist.md`
+- 先把 `.github/copilot-instructions.md` 與 `.github/prompts/fdd-*.prompt.md` 視為主要改寫標的
+- `document/flow.md`、`document/flow.llm.md`、`.current-spec.md` pointer 機制、以及 `idea.md / history.md / plan.md / check.md / optimization.md` artifact ownership 預設先視為可保留，除非新專案有明確衝突
+- 不要把這一輪擴張成 feature implementation、spec 建立、或實際驗證執行
+
+執行順序要求：
+1. 先讀 `document/guides/fdd_porting_guide.md`
+2. 再讀 `document/guides/fdd_migration_checklist.md`
+3. 先列出你準備改寫的 project-bound files
+4. 逐檔改寫 `.github/copilot-instructions.md` 的 project-bound rules，至少覆蓋：
+	 - 驗證環境基線
+	 - build / test / verify 指令來源
+	 - database source of truth
+	 - docs root 與 source-of-truth 路徑
+	 - 專案術語與架構名詞
+5. 逐檔改寫 `.github/prompts/fdd-focus.prompt.md`、`.github/prompts/fdd-sprint.prompt.md`、`.github/prompts/fdd-review.prompt.md`、`.github/prompts/fdd-retrospective.prompt.md`、`.github/prompts/fdd-flow-llm-align.prompt.md` 的 project-bound wording
+6. 明確列出哪些 FDD 核心檔案保留原樣，以及保留理由
+7. 最後只回報 migration 第 1 到第 3 步是否完成、哪些檔案已改、哪些仍待人工提供資訊
+
+改寫要求：
+- 保留 FDD 的 stage chain、history-first continuation、drift handling、artifact ownership，不要任意改流程骨架
+- 只替換 project-bound assumptions，不要把 prompt structure 重寫成另一套 workflow
+- 若新專案資訊不足，先列出缺少的環境/術語/文件根目錄資訊，再做最小安全改寫
+- 若發現 copied bundle 仍殘留來源專案名詞、路徑或驗證方式，必須主動清掉，不可假設之後再補
+
+輸出要求：
+- 先列出你讀了哪些 migration 文件
+- 再列出本輪要改的檔案與原因
+- 完成後列出：
+	- 已改寫的 project-bound files
+	- 明確保留不改的核心 FDD files
+	- 仍待人工補充的專案資訊
+- 不要進入第 4 步與第 5 步
+
+可直接貼給 LLM 的任務：
+
+```text
+請執行 FDD 新專案 migration 的第一輪改寫，只做第 1 到第 3 步。
+
+先讀：
+1. document/guides/fdd_porting_guide.md
+2. document/guides/fdd_migration_checklist.md
+
+目標：
+- 改寫 .github/copilot-instructions.md 的 project-bound rules
+- 改寫 .github/prompts/fdd-focus.prompt.md
+- 改寫 .github/prompts/fdd-sprint.prompt.md
+- 改寫 .github/prompts/fdd-review.prompt.md
+- 改寫 .github/prompts/fdd-retrospective.prompt.md
+- 改寫 .github/prompts/fdd-flow-llm-align.prompt.md
+- 明確列出哪些 FDD 核心檔案保留原樣
+
+限制：
+- 不要建立第一個真實 spec folder
+- 不要執行 prompt contract 驗證
+- 不要進入任何 feature implementation
+- 保留 FDD 的 stage chain、history-first continuation、drift handling、artifact ownership
+- 只替換 project-bound assumptions，例如驗證環境、資料庫 source of truth、docs root、專案術語、架構名詞
+
+回答順序：
+1. 先列出你讀了哪些 migration 文件
+2. 列出準備改寫的 project-bound files
+3. 說明哪些核心 FDD files 預計保留不改
+4. 直接完成第 1 到第 3 步的檔案改寫
+5. 最後回報已改寫檔案、保留檔案、以及仍待人工補充的專案資訊
+```
+
 ## 初始化
 
 ### 建立 spec 目錄

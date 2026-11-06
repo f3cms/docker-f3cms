@@ -1,10 +1,9 @@
 ---
-name: "FDD Flow reAlign"
+name: fdd-flow-realign
 description: "Use when calibrating document/flow.llm.md against document/flow.md, with flow.md as the primary source and flow.llm.md kept minimal, low-token, and execution-oriented."
+disable-model-invocation: true
 argument-hint: "Describe how flow.llm.md should be aligned to flow.md"
-agent: "agent"
 ---
-
 Calibrate [document/flow.llm.md](../../document/flow.llm.md) against [document/flow.md](../../document/flow.md), with [document/flow.md](../../document/flow.md) as the primary source.
 
 Before doing any work, apply these rules:

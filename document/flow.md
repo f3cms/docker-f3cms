@@ -49,6 +49,8 @@ FDD 指令是操作入口，不等於 stage 本身。stage 仍以 `idea -> (disc
 - 用途：依 current spec 的 `history.md`、`plan.md`、`check.md` 推進本輪最小可交付工作。
 - 對應關係：主要服務 `plan`、`(done)`、`check` 之間的實際推進，也可用於承接仍需收斂的 `(discuss)` 後續工作。
 - 使用時機：要落實本輪工作、補驗證、修正 drift、更新 spec 承接內容時。
+- 追加規則：若 `Sprint` 判斷目前 stage 為 `(Optimization)`，下一步必須重新讀取 `idea.md`、`plan.md`、`check.md`，確認沒有未落實規格、缺漏驗收點或未處理的 drift；只有在這三份文件一致且沒有影響前提時，才可維持 `(Optimization)`。 
+- 追加規則：只要任一輪更新了 `idea.md`，就必須移除目前狀態中的 `(Optimization)` 字句，並重啟整個 flow，從 `history.md` / `plan.md` / `check.md` 的一致性檢查開始重新判定 stage；不能把更新後的需求視為仍處於舊的 optimization 狀態。
 
 ### `FDD Review`
 - 用途：檢查 stage 判定、spec 文件一致性、驗收狀態與程式 / 文件是否漂移。

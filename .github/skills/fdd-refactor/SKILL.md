@@ -1,10 +1,9 @@
 ---
-name: "FDD Refactor"
+name: fdd-refactor
 description: "Use when a Flow Driven Development feature has confirmed convention drift that requires a bounded refactor without reopening the feature design or expanding implementation scope."
+disable-model-invocation: true
 argument-hint: "Describe the feature path and the specific drift or refactor target"
-agent: "agent"
 ---
-
 Execute the user's request as Flow Driven Development convention-refactor work.
 
 Before doing any work, apply these rules:
