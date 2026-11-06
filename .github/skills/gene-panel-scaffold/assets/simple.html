@@ -1,0 +1,29 @@
+<nav class="level">
+  <div class="level-left"><h1 class="module-title title is-2">{{ENTITY_TITLE}}</h1></div>
+  <div class="level-right">
+    <p class="level-item"><a class="button is-primary gee" data-gene="click:loadRow" data-tmpl="{{ENTITY}}Form" data-id="0">新增</a></p>
+  </div>
+</nav>
+<div class="columns is-multiline">
+  <div class="column is-8">
+    <div class="content box-shadow table-wrapper has-mobile-cards">
+      <table class="list-body table is-striped is-hoverable">
+        <thead><tr><th>#</th><th>名稱</th><th class="is-actions-cell">操作</th></tr></thead>
+        <tfoot></tfoot>
+        <tbody class="gee" data-gene="init:loadList,click:reactList" data-tmpl="{{ENTITY}}List" data-nopde="1"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="column is-4">
+    <div class="box">
+      <form class="gee" data-gene="init:initForm" data-tmpl="{{ENTITY}}Form" id="{{ENTITY}}Form">
+        <div class="field"><label class="label">名稱</label><p class="control"><input class="input" name="title" type="text"></p></div>
+        <input type="hidden" name="id">
+        <div class="field is-grouped">
+          <p class="control"><button type="button" class="button is-primary pre-gee" data-gene="click:setRow">送出</button></p>
+          <p class="control"><button type="button" class="button pre-gee" data-gene="click:cancelForm">取消</button></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

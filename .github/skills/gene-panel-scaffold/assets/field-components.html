@@ -1,0 +1,83 @@
+<!-- Gene Panel field component snippets -->
+
+<!-- Text / Email / Password / Datetime -->
+<div class="field">
+  <label class="label">標題</label>
+  <p class="control">
+    <input class="input" name="title" type="text" placeholder="請輸入標題">
+  </p>
+</div>
+<div class="field">
+  <label class="label">Email</label>
+  <p class="control">
+    <input class="input" name="email" type="email" placeholder="Email">
+  </p>
+</div>
+<div class="field">
+  <label class="label">密碼</label>
+  <p class="control">
+    <input class="password input" name="pwd" type="password" autocomplete="new-password">
+  </p>
+</div>
+<div class="field">
+  <label class="label">時間</label>
+  <p class="control">
+    <input type="datetime-local" class="datetime-local" name="start_date">
+  </p>
+</div>
+
+<!-- Textarea -->
+<div class="field">
+  <label class="label">摘要</label>
+  <p class="control">
+    <textarea name="summary" class="textarea" placeholder="一百字內之簡介"></textarea>
+  </p>
+</div>
+
+<!-- Rich editor -->
+<div class="field">
+  <label class="label">內容</label>
+  <p class="control">
+    <gee:editor data-param="content" data-inline="0"></gee:editor>
+  </p>
+</div>
+
+<!-- Suggestion relation -->
+<div class="field">
+  <label class="label">關聯資料</label>
+  <div class="control">
+    <input type="text" multiple class="multipleSelect" data-sortable="1" name="related_ids" placeholder="請輸入字詞查詢" data-url="module/get_opts">
+  </div>
+</div>
+
+<!-- Option relation -->
+<div class="field">
+  <label class="label">分類</label>
+  <p class="control">
+    <span class="select">
+      <gee:set-option module="category" name="cate_id" params='{"group":"default"}'></gee:set-option>
+    </span>
+  </p>
+</div>
+
+<!-- Upload -->
+<div class="field">
+  <label class="label">封面圖</label>
+  <gee-upload module-name="{{ENTITY}}" data-param="cover" info-text="400x400"></gee-upload>
+</div>
+<div class="field">
+  <label class="label">圖庫</label>
+  <gee-uploadDnD module-name="{{ENTITY}}" multiple="true" data-param="banners" info-text="最大寬度 1440px"></gee-uploadDnD>
+</div>
+
+<!-- Radio status -->
+<div class="field">
+  <label class="label">狀態</label>
+  <input type="radio" class="is-checkradio" name="status" value="Enabled" id="{{ENTITY}}-status-enabled">
+  <label class="radio" for="{{ENTITY}}-status-enabled">啟用</label>
+  <input type="radio" class="is-checkradio" name="status" value="Disabled" id="{{ENTITY}}-status-disabled">
+  <label class="radio" for="{{ENTITY}}-status-disabled">停用</label>
+</div>
+
+<!-- Hidden -->
+<input type="hidden" name="id">

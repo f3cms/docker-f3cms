@@ -1,0 +1,30 @@
+<nav class="level">
+  <div class="level-left">
+    <h1 class="module-title title is-2">{{ENTITY_TITLE}}</h1>
+    <p class="desc">{{ENTITY}} management</p>
+  </div>
+  <div class="level-right">
+    <p class="level-item">
+      <a class="button is-primary gee" data-gene="click:loadRow" data-tmpl="{{ENTITY}}Form" data-id="0">新增</a>
+    </p>
+  </div>
+</nav>
+<nav class="list-filter level">
+  <div class="level-left">
+    <div class="level-item query-box">
+      <div class="field has-addons">
+        <p class="control"><input class="input" type="text" placeholder="Find a option"></p>
+        <p class="control"><button class="button is-expanded gee" data-gene="init:initQueryForm,click:combineQuery" type="button">查詢</button></p>
+      </div>
+    </div>
+    <p class="level-item is-hidden">搜尋條件：</p>
+    <div class="tags js-query-list level-item"></div>
+  </div>
+</nav>
+<div class="content box-shadow table-wrapper has-mobile-cards">
+  <table class="list-body table is-striped is-hoverable">
+    <thead><tr><th>#</th><th>名稱</th><th class="is-actions-cell">操作</th></tr></thead>
+    <tfoot></tfoot>
+    <tbody class="gee" data-gene="init:loadList,click:reactList" data-tmpl="{{ENTITY}}List" data-nopde="1"></tbody>
+  </table>
+</div>

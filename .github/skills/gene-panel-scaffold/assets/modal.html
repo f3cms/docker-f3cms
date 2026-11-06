@@ -1,0 +1,14 @@
+<div class="box">
+  <form class="gee" data-gene="init:initForm" data-tmpl="{{ENTITY}}Form" id="{{ENTITY}}Form">
+    <div class="modal-header"><h2 class="module-title">編輯 {{ENTITY_TITLE}}</h2></div>
+    <div class="field">
+      <label class="label">名稱</label>
+      <p class="control"><input class="input" name="title" type="text" placeholder="{{ENTITY_TITLE}}"></p>
+    </div>
+    <input type="hidden" name="id">
+    <div class="tabs-footer"><div class="field is-grouped">
+      <p class="control"><button type="button" class="button is-primary pre-gee" data-gene="click:setRow">送出</button></p>
+      <p class="control"><button type="button" class="button pre-gee" data-gene="click:hideModal">取消</button></p>
+    </div></div>
+  </form>
+</div>
