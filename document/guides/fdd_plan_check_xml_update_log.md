@@ -87,7 +87,6 @@
     <target_spec_name>UserAuth</target_spec_name>
     <target_path>document/spec/UserAuth</target_path>
     <history_path>document/spec/UserAuth/history.xml</history_path>
-    <active_stage>check</active_stage>
     <last_updated_timestamp>2026-11-06T06:00:00Z</last_updated_timestamp>
 </current_spec_pointer>
 ```

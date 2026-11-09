@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <current_spec_pointer>
-  <target_spec_name>SMSSystem</target_spec_name>
-  <target_path>document/spec/SMSSystem</target_path>
-  <history_path>document/spec/SMSSystem/history.xml</history_path>
-  <plan_path>document/spec/SMSSystem/plan.xml</plan_path>
-  <check_path>document/spec/SMSSystem/check.xml</check_path>
-  <active_stage>discuss</active_stage>
-  <last_updated_timestamp>2026-11-06T22:10:33.844+08:00</last_updated_timestamp>
+  <target_spec_name>mandate</target_spec_name>
+  <target_path>document/spec/mandate</target_path>
+  <history_path>document/spec/mandate/history.xml</history_path>
+  <plan_path>document/spec/mandate/plan.xml</plan_path>
+  <check_path>document/spec/mandate/check.xml</check_path>
+  <last_updated_timestamp>2026-11-09T01:47:37.298+08:00</last_updated_timestamp>
   <current_session_id>499ad29a-94e5-48b6-8bb8-be536bbb8418</current_session_id>
 </current_spec_pointer>

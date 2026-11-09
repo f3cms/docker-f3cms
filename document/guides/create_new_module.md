@@ -96,6 +96,21 @@ Decide what the module actually needs:
 
 Not every module needs all four files immediately, but the naming model remains the same.
 
+### Step 3.5: Check Parent Extension Points Before Overriding
+
+Before writing or overriding module methods, always check whether the parent class already provides a suitable extension point.
+
+Required rule:
+- first use a parent extension point when it fits
+- only override parent CRUD/action methods when no suitable extension point exists
+
+Practical order:
+1. Read parent class hooks/seams for the target layer (`Reaction`, `Feed`, `Outfit`, `Kit`).
+2. Confirm whether the requirement can be completed through those hooks.
+3. Override parent methods only when step 2 is not sufficient, and document why.
+
+This protects owner boundaries and avoids duplicate flow logic such as reimplementing shared `do_save`/`do_list` paths without necessity.
+
 ### Step 4: Only Then Generate the Module Skeleton
 
 At this point the practical implementation work begins.
@@ -314,6 +329,71 @@ Before considering the module scaffold complete, verify the following.
 - Reaction owns backend interaction
 - Outfit owns rendering flow
 - Kit is used when module-owned rules or utilities justify encapsulation and possible cross-module reuse
+- Parent extension points are checked before any parent-method override
+
+## Common Extension Points (Hook/Override Seam) Snapshot
+
+The formal framework term for this kind of "切入點" is **extension point** (also commonly called a **hook** or **override seam**).
+
+### Extension Point Naming Rules
+
+Use these naming rules when introducing new extension points:
+
+- Use verb-first names that describe intent (`before*`, `after*`, `handle*`, `build*`, `adjust*`, `map*`, `render*`).
+- Use domain scope in the name when needed (`*Save*`, `*List*`, `*Filter*`, `*Option*`) so callers can identify lifecycle position quickly.
+- Prefer hook names for customization seams; keep shared action entry functions (`do_*`) as orchestration endpoints.
+- Do not use `_` prefix to imply extension semantics. In this codebase, `_` is legacy naming style, not a reliable visibility/hook marker.
+- For new names, prefer clear hook naming over abbreviations (`gen*`), unless keeping backward compatibility.
+
+Recommended review checklist for naming:
+1. Is this method an extension point (hook/seam) or a shared action entry?
+2. Can a new contributor infer timing and scope from the name alone?
+3. Does the name avoid encoding transport concerns when the behavior is domain-side?
+
+The following counts are from current `www/f3cms/modules/*` implementations (snapshot at 2026-11-09):
+
+### Reaction common extension points
+- `handleRow` — 9 modules — shape a single-row payload before returning it to backend edit/get flows
+- `handleIteratee` — 2 modules — shape each row in list responses after Feed retrieval
+- `beforeSave` — 1 module — normalize/prepare request payload before delegating to Feed save
+
+Reaction note:
+- `do_*` methods (for example `do_list`, `do_save`, `do_upload`, `do_get_opts`) are shared action entry functions, not extension points by default.
+- In Reaction, extension-point style customization should prioritize hook methods such as `handleRow`, `handleIteratee`, and `beforeSave`.
+
+### Feed common extension points
+- `genOrder` — 8 modules — define entity-specific list sorting policy
+- `genJoin` — 6 modules — define required joins for list/search/read projections
+- `genQuery` — 5 modules — define filter query mapping from request intent to SQL conditions
+- `getOpts` — 4 modules — provide entity-specific option lookup output
+- `_handleColumn` — 3 modules — split/normalize incoming save payload into main-row and subordinate data
+- `adjustFilter` — 2 modules — adjust list/filter conditions before execution
+
+### Outfit common extension points
+- `show` — 6 modules — orchestrate page-level rendering and view-model preparation for frontend entry routes
+
+### Kit common extension points
+- `rules` — 8 modules — declare module-owned validation contracts used by Reaction save/login/action flows
+
+### Existing Extension Points: Suggested New Names (for future alias/migration)
+
+These are naming suggestions to improve discoverability. They are not mandatory immediate renames.
+
+| Layer | Current name | Suggested name | Reason |
+|---|---|---|---|
+| Reaction | `handleRow` | `mapDetailRow` | Clarifies this is row shaping for single-row/detail flow. |
+| Reaction | `handleIteratee` | `mapListRow` | Clarifies this is list-row mapping, not generic iteratee logic. |
+| Reaction | `beforeSave` | `normalizeBeforeSave` | Makes "pre-save normalization hook" explicit. |
+| Feed | `genOrder` | `buildListOrder` | `build*` is clearer than `gen*` and anchors to list flow. |
+| Feed | `genJoin` | `buildListJoin` | Clarifies join composition role for list/read projection. |
+| Feed | `genQuery` | `buildListQuery` | Clarifies query-condition construction. |
+| Feed | `getOpts` | `listOptions` | Improves readability and aligns with option endpoint intent. |
+| Feed | `_handleColumn` | `normalizeSavePayload` | Describes payload normalization/decomposition directly; removes ambiguous `_`. |
+| Feed | `adjustFilter` | `adjustListFilter` | Makes adjustment scope explicit. |
+| Outfit | `show` | `renderPage` | Clarifies page-render orchestration role. |
+| Kit | `rules` | `validationRules` | Makes validation contract purpose explicit. |
+
+When adding a new module, prefer these extension points first. If none can satisfy the requirement, then proceed with a targeted parent-method override.
 
 ### Review Path
 - run [data_architecture_checklist.md](data_architecture_checklist.md)
